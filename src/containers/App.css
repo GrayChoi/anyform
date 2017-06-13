@@ -1,0 +1,22 @@
+.App {
+  display: flex;
+  min-height: 100vh;
+  flex: 1;
+}
+
+.App .Sidebar {
+  background-color: whitesmoke;
+  width: 20%;
+  margin: 1%;
+  border-radius: 5;
+  border: 1px solid ghostwhite;
+}
+
+.App .Main {
+  background-color: whitesmoke;
+  width: 80%;
+  margin: 1%;
+  border-radius: 5;
+  border: 1px solid ghostwhite;
+}
+
