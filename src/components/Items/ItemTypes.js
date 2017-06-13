@@ -1,3 +1,3 @@
 const CARD = 'card';
 
-export { CARD };
+export default { CARD };

@@ -15,7 +15,7 @@ const cardSource = {
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging(),
 }))
-export default class Card {
+export default class Card extends React.Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
     // Injected by React DnD:
