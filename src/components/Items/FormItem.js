@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
 import ItemTypes from './ItemTypes';
-import styles from './FormItem.css';
+import styles from './FormItem.module.css';
 
 const formItemSource = {
   beginDrag({ label, type }) {
@@ -35,9 +35,10 @@ export default class FormItem extends React.Component {
       isDragging,
       connectDragSource,
       label,
+      color,
     } = this.props;
     return connectDragSource(
-      <div className={styles.item} style={{ opacity: isDragging ? 0.5 : 1 }}>
+      <div className={styles.item} style={{ opacity: isDragging ? 0.5 : 1, backgroundColor: color }}>
         {label}
       </div>
     );

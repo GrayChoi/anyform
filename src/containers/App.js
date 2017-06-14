@@ -5,16 +5,23 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import FormItem from '../components/Items/FormItem';
 import FormContainer from './FormContainer';
 
-import styles from './App.css';
+import styles from './App.module.css';
+
+import formItems from '../master_data/formItems';
 
 class App extends Component {
+  renderFormItems = () => {
+    return formItems.map((({ type, label, color }) => (
+        <FormItem key={type} label={label} type={type} color={color} />
+    )));
+  }
   render() {
     const { App, Sidebar, Main } = styles;
     return (
       <DragDropContextProvider backend={HTML5Backend}>
         <div className={App}>
           <div className={Sidebar}>
-            <FormItem label="input" type="input" />
+            {this.renderFormItems()}
           </div>
           <div className={Main}>
             <FormContainer />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Form from '../components/Items/Form';
+import Form from '../components/Form';
 import * as actionTypes from '../constants/actionTypes';
 
 @connect(({ form }) => ({ form }), mapDispatchToState)

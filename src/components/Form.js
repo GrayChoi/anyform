@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
-import ItemTypes from './ItemTypes';
+import ItemTypes from './Items/ItemTypes';
+import FormItemTypes from '../constants/FormItemTypes';
+import FormItemWrapper from './FormItemWrapper';
+import { Transition } from './common';
 import R from 'ramda';
-import { Input } from 'antd';
+import { Input, InputNumber, Select, DatePicker, Rate } from 'antd';
 
 const style = {
   flex: 1,
@@ -46,14 +49,18 @@ export default class Form extends Component {
 
   renderCandidateItem() {
     const { candidateItem } = this.props.form;
-    if (candidateItem.type === 'input') {
-      return <div style={{ opacity: 0.5 }}><Input /></div>;
+    if (!R.isEmpty(candidateItem)) {
+      return (
+        <div style={{ opacity: 0.5, margin: '15px' }}>
+          {generateFormItem(candidateItem)}
+        </div>
+      );
     }
   }
 
   renderFormItem = () => {
     const { formItems } = this.props.form;
-    return formItems.map((item, index) => (<div key={index}><Input /></div>))
+    return formItems.map(R.compose(wrap, generateFormItem))
   }
 
   render() {
@@ -62,9 +69,41 @@ export default class Form extends Component {
 
     return connectDropTarget(
       <div style={{ ...style, backgroundColor }}>
-        {this.renderFormItem()}
-        {this.renderCandidateItem()}
+        <Transition>
+          {this.renderFormItem()}
+          {this.renderCandidateItem()}
+        </Transition>
       </div>
     );
   }
+}
+
+function generateFormItem({ type }) {
+  switch (type) {
+    case FormItemTypes.INPUT: {
+      return <Input />
+    }
+    case FormItemTypes.INPUT_NUMBER: {
+      return <InputNumber />
+    }
+    case FormItemTypes.DATE_PICKER: {
+      return <DatePicker />
+    }
+    case FormItemTypes.SELECT: {
+      return (
+        <Select
+          style={{ width: 200 }}
+        />
+      );
+    }
+    case FormItemTypes.RATE: {
+      return <Rate />
+    }
+    default:
+      return <Input />
+  }
+}
+
+function wrap(item) {
+  return <FormItemWrapper>{item}</FormItemWrapper>
 }
