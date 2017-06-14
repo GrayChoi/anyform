@@ -1,3 +1,3 @@
-const CARD = 'card';
+const FormItem = 'formItem';
 
-export default { CARD };
+export default { FormItem };

@@ -1,10 +1,15 @@
+@import '../styles/common.css';
+
 .App {
   display: flex;
   min-height: 100vh;
   flex: 1;
 }
 
-.App .Sidebar {
+.Sidebar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   background-color: whitesmoke;
   width: 20%;
   margin: 1%;
@@ -12,7 +17,7 @@
   border: 1px solid ghostwhite;
 }
 
-.App .Main {
+.Main {
   display: flex;
   background-color: whitesmoke;
   width: 80%;
