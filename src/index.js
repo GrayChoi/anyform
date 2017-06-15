@@ -8,8 +8,13 @@ import configureStore from './store/configureStore'
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
+import * as firebaseApi from './services/firebaseApi';
+
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
+
+firebaseApi.int();
+firebaseApi.signInAnonymously();
 
 render(
   <Root store={store} history={history} />,
