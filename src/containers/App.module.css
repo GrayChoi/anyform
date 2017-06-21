@@ -4,24 +4,11 @@
   flex: 1;
 }
 
-.Sidebar {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  background-color: whitesmoke;
-  width: 20%;
-  margin: 1%;
-  border-radius: 5;
-  border: 1px solid ghostwhite;
-}
-
 .Main {
   display: flex;
-  background-color: whitesmoke;
-  width: 80%;
-  margin: 1%;
-  padding: 5%;
-  border-radius: 5;
-  border: 1px solid ghostwhite;
+  flex: 1;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #f5f5f5;
 }
 

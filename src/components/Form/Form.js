@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
-import ItemTypes from './Items/ItemTypes';
-import FormItemTypes from '../constants/FormItemTypes';
+import ItemTypes from '../Items/ItemTypes';
+import FormItemTypes from '../../constants/FormItemTypes';
 import FormItemWrapper from './FormItemWrapper';
-import { Transition } from './common';
+import PlaceHolder from './PlaceHolder';
+import styles from './Form.module.css';
+
 import R from 'ramda';
 import { Input, InputNumber, Select, DatePicker, Rate } from 'antd';
-
-const style = {
-  flex: 1,
-  alignSelf: 'stretch',
-};
 
 const FormItemTarget = {
   drop({ saveFormItem }) {
@@ -63,16 +60,25 @@ export default class Form extends Component {
     return formItems.map(R.compose(wrap, generateFormItem))
   }
 
+  renderFormContent = () => {
+    return (
+      <div>
+        {this.renderFormItem()}
+        {this.renderCandidateItem()}
+      </div>
+    );
+  }
+
+  isEmptyForm = () => {
+    return this.props.form.formItems.length === 0;
+  }
+
   render() {
     const { connectDropTarget } = this.props;
-    let backgroundColor = 'whitesmoke';
 
     return connectDropTarget(
-      <div style={{ ...style, backgroundColor }}>
-        <Transition>
-          {this.renderFormItem()}
-          {this.renderCandidateItem()}
-        </Transition>
+      <div className={styles.Form}>
+        { this.isEmptyForm() ?  <PlaceHolder /> : this.renderFormContent() } 
       </div>
     );
   }

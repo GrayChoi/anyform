@@ -1,0 +1,10 @@
+.container {
+  padding: 45px 20px;
+  border: 2px dashed rgba(0,0,0,.15);
+  background-color: rgba(0,0,0,.03);
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}

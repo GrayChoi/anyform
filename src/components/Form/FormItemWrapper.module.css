@@ -1,0 +1,10 @@
+.wrapper {
+  padding: 10px;
+  background-color: white;
+  transition: all 0.2s ease-in-out;
+  transform: scale(1);
+}
+
+.wrapperScaled {
+  transform: scale(1.1);
+}

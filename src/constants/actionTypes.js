@@ -1,3 +1,5 @@
-export const SAVE_CANDIDATE_FORM_ITEM = 'saveCandidateFormItem';
-export const REMOVE_CANDIDATE_FORM_ITEM = 'removeCandidateFormItem';
-export const SAVE_FORM_ITEM = 'saveFormItem';
+export const SAVE_CANDIDATE_FORM_ITEM = 'SAVE_CANDIDATE_FORM_ITEM';
+export const REMOVE_CANDIDATE_FORM_ITEM = 'REMOVE_CANDIDATE_FORM_ITEM';
+export const SAVE_FORM_ITEM = 'SAVE_FORM_ITEM';
+
+export const TOGGLE_LEFT_PANEL = 'TOGGLE_LEFT_PANEL';
