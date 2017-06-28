@@ -8,7 +8,7 @@ const formReudcer = handleActions({
   [actionTyps.REMOVE_CANDIDATE_FORM_ITEM](state) {
     return { ...state, candidateItem: {}};
   },
-  [actionTyps.SAVE_FORM_ITEM](state) {
+  [actionTyps.SAVE_FORM_ITEM_SUCCESS](state) {
     return {
       ...state,
       formItems: [...state.formItems, state.candidateItem],

@@ -1,8 +1,8 @@
 export const firebaseConfig = {
-  apiKey: "AIzaSyB00HUbROk156BiJPIbfT5YQ0vySsEmbVk",
-  authDomain: "collect-dev-5ebc0.firebaseapp.com",
-  databaseURL: "https://collect-dev-5ebc0.firebaseio.com",
-  projectId: "collect-dev-5ebc0",
-  storageBucket: "collect-dev-5ebc0.appspot.com",
-  messagingSenderId: "861611716382"
+  apiKey: "AIzaSyCeZfrEDeUZPRg6B3pU0j5u0PL2u68m7ZI",
+  authDomain: "anyform-f603b.firebaseapp.com",
+  databaseURL: "https://anyform-f603b.firebaseio.com",
+  projectId: "anyform-f603b",
+  storageBucket: "anyform-f603b.appspot.com",
+  messagingSenderId: "144723281534"
 };
