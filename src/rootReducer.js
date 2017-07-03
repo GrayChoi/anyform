@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 import { routerReducer as routing } from 'react-router-redux'
-import FormReducer from './Form';
-import AppReducer from './App';
+import { reducer as WorkSpaceReducer } from './WorkSpace';
+import { reducer as FormReducer } from './Form';
 
 const rootReducer = combineReducers({
   routing,
   form: FormReducer,
-  app: AppReducer,
+  workspace: WorkSpaceReducer,
 });
 
 export default rootReducer;

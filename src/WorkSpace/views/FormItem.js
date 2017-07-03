@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
-import ItemTypes from './ItemTypes';
+
+import ItemTypes from '../constants/ItemTypes';
 import styles from './FormItem.module.css';
 
 const formItemSource = {

@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware, { END } from 'redux-saga'
-import rootReducer from '../reducers';
-import DevTools from '../containers/DevTools';
+import rootReducer from '../rootReducer';
+import DevTools from './DevTools';
 
 const configureStore = (preloadedState) => {
   const sagaMiddleware = createSagaMiddleware();
@@ -21,8 +21,8 @@ const configureStore = (preloadedState) => {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextRootReducers = require('../reducers').default;
+    module.hot.accept('../rootReducer', () => {
+      const nextRootReducers = require('../rootReducer').default;
       store.replaceReducer(nextRootReducers);
     });
   }

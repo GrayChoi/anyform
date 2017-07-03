@@ -1,12 +1,10 @@
 import { handleActions } from 'redux-actions';
-import * as actionTyps from '../constants/actionTypes';
+import * as actionTyps from './actionTypes';
 
-const appReducer = handleActions({
+export default handleActions({
   [actionTyps.TOGGLE_LEFT_PANEL](state) {
     return  { ...state, leftPanelOpend: !state.leftPanelOpend };
   },
 }, {
   leftPanelOpend: false,
-})
-
-export default appReducer;
+});

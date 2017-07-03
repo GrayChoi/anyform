@@ -1,14 +1,14 @@
 import { handleActions } from 'redux-actions';
-import * as actionTyps from '../constants/actionTypes';
+import * as actionTypes from './actionTypes';
 
-const formReudcer = handleActions({
-  [actionTyps.SAVE_CANDIDATE_FORM_ITEM](state, { payload }) {
+export default handleActions({
+  [actionTypes.SAVE_CANDIDATE_FORM_ITEM](state, { payload }) {
     return  { ...state, candidateItem: payload };
   },
-  [actionTyps.REMOVE_CANDIDATE_FORM_ITEM](state) {
+  [actionTypes.REMOVE_CANDIDATE_FORM_ITEM](state) {
     return { ...state, candidateItem: {}};
   },
-  [actionTyps.SAVE_FORM_ITEM_SUCCESS](state) {
+  [actionTypes.SAVE_FORM_ITEM_SUCCESS](state) {
     return {
       ...state,
       formItems: [...state.formItems, state.candidateItem],
@@ -18,6 +18,4 @@ const formReudcer = handleActions({
 }, {
   candidateItem: {},
   formItems: [],
-})
-
-export default formReudcer;
+});

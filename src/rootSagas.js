@@ -1,8 +1,8 @@
 import { fork, all } from 'redux-saga/effects';
-import main from './main';
+import { saga as FormSaga } from './Form';
 
 export default function* root() {
   yield all([
-    fork(main),
+    fork(FormSaga),
   ]);
 }

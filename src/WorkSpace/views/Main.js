@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import * as actionTypes from '../constants/actionTypes';
 
-import FormItem from '../components/Items/FormItem';
-import ToggleButton from '../components/ToggleButton';
-import Sidebar from '../components/Sidebar';
-
+import { TOGGLE_LEFT_PANEL } from '../actions';
+import FormItem from './FormItem';
+import ToggleButton from './ToggleButton';
+import Sidebar from './Sidebar';
 import FormContainer from './FormContainer';
 
-import styles from './App.module.css';
+import styles from './Main.module.css';
 
-import formItems from '../master_data/formItems';
+import formItems from '../data/formItems';
 
 @connect(mapStateToProps, mapDispatchToProps)
-class App extends Component {
+class Main extends Component {
 
   static propTypes = {
     togglePanel: PropTypes.func.isRequired,
@@ -30,18 +29,18 @@ class App extends Component {
   }
 
   render() {
-    const { App, Main } = styles;
+    const { Main, Form } = styles;
     const { togglePanel, leftPanelOpend } = this.props; 
     return (
       <DragDropContextProvider backend={HTML5Backend}>
-        <div className={App}>
+        <div className={Main}>
           <ToggleButton onPress={togglePanel} />
           <Sidebar
             onPressClose={togglePanel}
             open={leftPanelOpend} >
             {this.renderFormItems()}
           </Sidebar>
-          <div className={Main}>
+          <div className={Form}>
             <FormContainer />
           </div>
         </div>
@@ -53,7 +52,7 @@ class App extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    togglePanel: () => dispatch({ type: actionTypes.TOGGLE_LEFT_PANEL }),
+    togglePanel: () => dispatch(TOGGLE_LEFT_PANEL),
   };
 }
 
@@ -65,4 +64,4 @@ function mapStateToProps({
   };
 }
 
-export default App;
+export default Main;

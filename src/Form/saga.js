@@ -1,5 +1,5 @@
 import { fork, all, takeEvery, select } from 'redux-saga/effects';
-import * as actionTypes from '../constants/actionTypes';
+import  { SAVE_FORM_ITEM } from './actionTypes';
 
 import { firebaseDb, firebaseAuth } from '../services/Firebase';
 
@@ -15,7 +15,7 @@ function* saveFormItem() {
 
 // watcher
 function* watchSaveFormItem() {
-  yield takeEvery(actionTypes.SAVE_FORM_ITEM, saveFormItem);
+  yield takeEvery(SAVE_FORM_ITEM, saveFormItem);
 }
 
 export default function* () {

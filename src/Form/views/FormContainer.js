@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Form from '../components/Form';
-import * as actionTypes from '../constants/actionTypes';
+import Form from './Form';
+import { saveCandidateFormItem, removeCandidateFormItem, saveFormItem } from '../actions';
 
 @connect(({ form }) => ({ form }), mapDispatchToState)
 export default class FormContainer extends React.Component {
@@ -25,8 +25,8 @@ export default class FormContainer extends React.Component {
 
 function mapDispatchToState(dispatch) {
   return {
-    saveCandidateFormItem: payload => dispatch({ type: actionTypes.SAVE_CANDIDATE_FORM_ITEM, payload }),
-    removeCandidateFormItem: () => dispatch({ type: actionTypes.REMOVE_CANDIDATE_FORM_ITEM }),
-    saveFormItem: () => dispatch({ type: actionTypes.SAVE_FORM_ITEM }),
+    saveCandidateFormItem: payload => dispatch(saveCandidateFormItem(payload)),
+    removeCandidateFormItem: () => dispatch(removeCandidateFormItem()),
+    saveFormItem: () => dispatch(saveFormItem()),
   };
 }
