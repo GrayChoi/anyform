@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
-import ItemTypes from '../constants/ItemTypes';
+import ItemTypes from '../../common/constants/ItemTypes';
 import FormItemWrapper from './FormItemWrapper';
 import PlaceHolder from './PlaceHolder';
 import styles from './Form.module.css';

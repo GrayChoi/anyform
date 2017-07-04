@@ -8,7 +8,7 @@ export default handleActions({
   [actionTypes.REMOVE_CANDIDATE_FORM_ITEM](state) {
     return { ...state, candidateItem: {}};
   },
-  [actionTypes.SAVE_FORM_ITEM_SUCCESS](state) {
+  [actionTypes.SAVE_FORM_ITEM](state) {
     return {
       ...state,
       formItems: [...state.formItems, state.candidateItem],
