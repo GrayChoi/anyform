@@ -5,7 +5,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 
 import Root from './Root'
 import configureStore from './store/configureStore'
-import rootSagas from './rootSagas'
+// import rootSagas from './rootSagas'
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
@@ -13,7 +13,7 @@ import { firebaseAuth } from './services/Firebase';
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
-store.runSaga(rootSagas)
+// store.runSaga(rootSagas)
 
 firebaseAuth.signInAnonymously();
 

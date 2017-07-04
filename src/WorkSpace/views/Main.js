@@ -4,14 +4,13 @@ import { connect } from 'react-redux'
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import { TOGGLE_LEFT_PANEL } from '../actions';
+import { view as Form } from '../../Form';
+
+import { toggleLeftPanel } from '../actions';
 import FormItem from './FormItem';
 import ToggleButton from './ToggleButton';
 import Sidebar from './Sidebar';
-import FormContainer from './FormContainer';
-
 import styles from './Main.module.css';
-
 import formItems from '../data/formItems';
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -29,7 +28,7 @@ class Main extends Component {
   }
 
   render() {
-    const { Main, Form } = styles;
+    const { Main, FormStyle } = styles;
     const { togglePanel, leftPanelOpend } = this.props; 
     return (
       <DragDropContextProvider backend={HTML5Backend}>
@@ -40,8 +39,8 @@ class Main extends Component {
             open={leftPanelOpend} >
             {this.renderFormItems()}
           </Sidebar>
-          <div className={Form}>
-            <FormContainer />
+          <div className={FormStyle}>
+            <Form />
           </div>
         </div>
       </DragDropContextProvider>
@@ -52,12 +51,12 @@ class Main extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    togglePanel: () => dispatch(TOGGLE_LEFT_PANEL),
+    togglePanel: () => dispatch(toggleLeftPanel()),
   };
 }
 
 function mapStateToProps({
-  app: { leftPanelOpend },
+  workspace: { leftPanelOpend },
 }) {
   return {
     leftPanelOpend,

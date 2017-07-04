@@ -1,4 +1,5 @@
-import types from './constants/FormItemTypes';
+import types from '../../common/constants/FormItemTypes';
+
 const formItems = [
   {
     type: types.INPUT,

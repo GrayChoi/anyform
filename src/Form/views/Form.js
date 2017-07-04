@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
 import ItemTypes from '../constants/ItemTypes';
-import FormItemTypes from '../constants/FormItemTypes';
 import FormItemWrapper from './FormItemWrapper';
 import PlaceHolder from './PlaceHolder';
 import styles from './Form.module.css';
+
+import FormItemTypes from '../../common/constants/FormItemTypes';
 
 import R from 'ramda';
 import { Input, InputNumber, Select, DatePicker, Rate } from 'antd';
