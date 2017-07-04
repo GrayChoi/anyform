@@ -15,8 +15,8 @@ const FormItemTarget = {
   drop({ saveFormItem }) {
     saveFormItem();
   },
-  hover({ saveCandidateFormItem, form }, monitor) {
-    const { candidateItem } = form;
+  hover({ saveCandidateFormItem, stage }, monitor) {
+    const { candidateItem } = stage;
     if (R.isEmpty(candidateItem)) {
       saveCandidateFormItem(monitor.getItem())
     }
@@ -46,7 +46,7 @@ export default class Form extends Component {
   }
 
   renderCandidateItem() {
-    const { candidateItem } = this.props.form;
+    const { candidateItem } = this.props.stage;
     if (!R.isEmpty(candidateItem)) {
       return (
         <div style={{ opacity: 0.5, margin: '15px' }}>
@@ -57,7 +57,7 @@ export default class Form extends Component {
   }
 
   renderFormItem = () => {
-    const { formItems } = this.props.form;
+    const { formItems } = this.props.stage;
     return formItems.map(R.compose(wrap, generateFormItem))
   }
 
@@ -71,7 +71,7 @@ export default class Form extends Component {
   }
 
   isEmptyForm = () => {
-    return this.props.form.formItems.length === 0;
+    return this.props.stage.formItems.length === 0;
   }
 
   render() {

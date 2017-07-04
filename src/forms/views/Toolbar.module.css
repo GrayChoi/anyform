@@ -1,0 +1,29 @@
+.toolbar {
+  display: flex;
+  min-height: 36px;
+  background-color: white;
+  width: auto;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.createFormWrapper {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  background-color: white;
+  padding: 15px;
+  box-shadow: 1px 0 0 0 #e5e5e5;
+}
+
+.createFormWrapper button {
+  width: 100%;
+  line-height: 16px;
+  font-size: 15px;
+}
+
+.formActionsWrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+  flex: 4;
+}

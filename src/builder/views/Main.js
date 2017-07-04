@@ -56,7 +56,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({
-  workspace: { leftPanelOpend },
+  builder: { leftPanelOpend },
 }) {
   return {
     leftPanelOpend,

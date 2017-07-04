@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 750px;
+  min-width: 720px;
+  width: 98%;
+  margin: 6px auto 0;
+  background-color: white;
+  border-top: 9px solid #108ee9;
+}
+
+.toolbarWrapper {
+}
+
+.bodyWrapper {
+  display: flex;
+  background-color: white;
+  flex: 1;
+}
+
+.sideNavBarWrapper {
+  display: flex;
+  flex: 1;
+  padding: 15px;
+}
+
+.mainWrapper {
+  display: flex;
+  flex: 4;
+  padding: 15px;
+  border-left: 1px solid #e5e5e5;
+}

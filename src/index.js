@@ -9,7 +9,7 @@ import configureStore from './store/configureStore'
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
-import { firebaseAuth } from './services/Firebase';
+import { firebaseAuth } from './firebase';
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)

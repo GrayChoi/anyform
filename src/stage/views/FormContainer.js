@@ -3,21 +3,21 @@ import { connect } from 'react-redux';
 import Form from './Form';
 import { saveCandidateFormItem, removeCandidateFormItem, saveFormItem } from '../actions';
 
-@connect(({ form }) => ({ form }), mapDispatchToState)
+@connect(({ stage }) => ({ stage }), mapDispatchToState)
 export default class FormContainer extends React.Component {
   render() {
     const {
       saveCandidateFormItem,
       removeCandidateFormItem,
       saveFormItem,
-      form,
+      stage,
     } = this.props;
     return (
       <Form
         saveCandidateFormItem={saveCandidateFormItem}
         removeCandidateFormItem={removeCandidateFormItem}
         saveFormItem={saveFormItem}
-        form={form}
+        stage={stage}
       />
     )
   }
