@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import { view as Form } from '../../Form';
+import { view as Stage } from '../../stage';
 
 import { toggleLeftPanel } from '../actions';
 import FormItem from './FormItem';
@@ -28,19 +28,19 @@ class Main extends Component {
   }
 
   render() {
-    const { Main, FormStyle } = styles;
+    const { main, stage } = styles;
     const { togglePanel, leftPanelOpend } = this.props; 
     return (
       <DragDropContextProvider backend={HTML5Backend}>
-        <div className={Main}>
+        <div className={main}>
           <ToggleButton onPress={togglePanel} />
           <Sidebar
             onPressClose={togglePanel}
             open={leftPanelOpend} >
             {this.renderFormItems()}
           </Sidebar>
-          <div className={FormStyle}>
-            <Form />
+          <div className={stage}>
+            <Stage />
           </div>
         </div>
       </DragDropContextProvider>

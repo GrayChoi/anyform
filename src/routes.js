@@ -1,5 +1,5 @@
 import React from 'react'
 import { Route } from 'react-router'
-import { view as WorkSpace } from './WorkSpace'
+import { view as Builder } from './builder'
 
-export default <Route path="/" component={WorkSpace}></Route>
+export default <Route path="/" component={Builder}></Route>
