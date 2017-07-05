@@ -1,17 +1,19 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { browserHistory } from 'react-router'
+import { routerMiddleware } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from '../rootReducer';
-import DevTools from './DevTools';
 
 const configureStore = (preloadedState) => {
   const store = createStore(
     rootReducer,
     preloadedState,
-    compose(
+    composeWithDevTools(
       applyMiddleware(
+        routerMiddleware(browserHistory),
         createLogger(),
       ),
-      DevTools.instrument()
     ),
   );
 

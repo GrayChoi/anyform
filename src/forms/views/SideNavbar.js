@@ -10,7 +10,7 @@ import { Menu } from 'antd';
 export default class SideNavbar extends PureComponent {
 
   static propTypes = {
-    pushTo: PropTypes.func.isRequired,
+    open: PropTypes.func.isRequired,
   }
 
   state = {
@@ -18,9 +18,8 @@ export default class SideNavbar extends PureComponent {
   }
 
   handleClick = (e) => {
-    this.setState({ current: e.key }, () => {
-      this.props.pushTo(this.state.current);
-    });
+    this.setState({ current: e.key },
+      () => this.props.open(e.key))
   }
 
   render() {
@@ -45,6 +44,6 @@ export default class SideNavbar extends PureComponent {
 
 function mapDispatchToProps(dispatch) {
   return {
-    pushTo: key => dispatch(push(`/forms/${key}`)),
+    open: key => dispatch(push(`/forms/${key}`)),
   }
 }
