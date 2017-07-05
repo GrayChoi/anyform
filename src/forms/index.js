@@ -1,5 +1,5 @@
 import Container from './views/Container';
-import * as epics from './epics';
+import epics from './epics';
 export {
   Container as view,
   epics,

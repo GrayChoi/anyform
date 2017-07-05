@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware } from 'redux';
 import { browserHistory } from 'react-router'
 import { routerMiddleware } from 'react-router-redux';
-import { createEpicMiddleware } from 'redux-observable';
+// import { createEpicMiddleware } from 'redux-observable';
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from '../rootReducer';
-import rootEpic from '../rootEpic';
+// import rootEpic from '../rootEpic';
 
 const configureStore = (preloadedState) => {
   const store = createStore(
@@ -14,7 +14,7 @@ const configureStore = (preloadedState) => {
     composeWithDevTools(
       applyMiddleware(
         routerMiddleware(browserHistory),
-        createEpicMiddleware(rootEpic),
+        // createEpicMiddleware(rootEpic),
         createLogger(),
       ),
     ),
