@@ -16,9 +16,19 @@ const history = syncHistoryWithStore(browserHistory, store)
 
 firebaseAuth.signInAnonymously();
 
-render(
-  <Root store={store} history={history} />,
-  document.getElementById('root')
-)
+firebaseAuth.onAuthStateChanged((user) => {
+  if (user) {
+    // User is signed in.
+    var isAnonymous = user.isAnonymous;
+    var uid = user.uid;
+    console.log(isAnonymous, uid);
+    render(
+      <Root store={store} history={history} />,
+      document.getElementById('root')
+    )
+  } else {
+    // User is signed out.
+  }
+});
 
 registerServiceWorker();

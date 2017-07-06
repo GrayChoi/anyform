@@ -1,6 +1,6 @@
 // import { LOCATION_CHANGE } from 'react-router-redux';
-// import { combineEpics } from 'redux-observable';
-
+import { combineEpics } from 'redux-observable';
+import { Observable } from "rxjs/Observable";
 // import { connect } from '../firebase';
 // import * as actionTypes from './actionTypes';
 // import {
@@ -53,3 +53,16 @@
 //   createFormEpic,
 //   loadFormsEpic,
 // );
+const testEpic = action$ => 
+  action$
+    .map(() => Observable
+        .interval(1000)
+        .map(() => ({ name: 'cai '}))
+        .mergeMap(() => Observable.interval(1500))
+        .take(9)
+        .subscribe((x) => console.log(x)))
+    .ignoreElements();
+
+export default combineEpics(
+  testEpic,
+);
