@@ -3,7 +3,7 @@ import {
   firebaseAuth,
   timestamp,
 } from './firebaseInitializer';
-import replace from 'ramda/src/replace';
+import { replace } from 'ramda';
 
 class Connector {
   constructor(ref) {

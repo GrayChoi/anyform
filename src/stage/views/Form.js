@@ -8,7 +8,7 @@ import styles from './Form.module.css';
 
 import FormItemTypes from '../../common/constants/FormItemTypes';
 
-import R from 'ramda';
+import { isEmpty, compose } from 'ramda';
 import { Input, InputNumber, Select, DatePicker, Rate } from 'antd';
 
 const FormItemTarget = {
@@ -17,7 +17,7 @@ const FormItemTarget = {
   },
   hover({ saveCandidateFormItem, stage }, monitor) {
     const { candidateItem } = stage;
-    if (R.isEmpty(candidateItem)) {
+    if (isEmpty(candidateItem)) {
       saveCandidateFormItem(monitor.getItem())
     }
   },
@@ -47,7 +47,7 @@ export default class Form extends Component {
 
   renderCandidateItem() {
     const { candidateItem } = this.props.stage;
-    if (!R.isEmpty(candidateItem)) {
+    if (!isEmpty(candidateItem)) {
       return (
         <div style={{ opacity: 0.5, margin: '15px' }}>
           {generateFormItem(candidateItem)}
@@ -58,7 +58,7 @@ export default class Form extends Component {
 
   renderFormItem = () => {
     const { formItems } = this.props.stage;
-    return formItems.map(R.compose(wrap, generateFormItem))
+    return formItems.map(compose(wrap, generateFormItem))
   }
 
   renderFormContent = () => {

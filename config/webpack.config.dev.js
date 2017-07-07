@@ -167,7 +167,13 @@ module.exports = {
         options: {
           // babel-plugin-import
           plugins: [
-            ['import', { libraryName: 'antd', style: 'css' }],
+            [
+              'import',
+              [
+                { libraryName: 'antd', style: 'css' },
+                { libraryName: 'ramda', libraryDirectory: 'src', camel2DashComponentName: false },
+              ] 
+            ],
           ],
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
