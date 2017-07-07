@@ -11,9 +11,6 @@ import './index.css';
 
 import { firebaseAuth } from './firebase';
 
-const store = configureStore()
-const history = syncHistoryWithStore(browserHistory, store)
-
 firebaseAuth.signInAnonymously();
 
 firebaseAuth.onAuthStateChanged((user) => {
@@ -22,6 +19,8 @@ firebaseAuth.onAuthStateChanged((user) => {
     var isAnonymous = user.isAnonymous;
     var uid = user.uid;
     console.log(isAnonymous, uid);
+    const store = configureStore()
+    const history = syncHistoryWithStore(browserHistory, store)
     render(
       <Root store={store} history={history} />,
       document.getElementById('root')

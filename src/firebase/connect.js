@@ -3,71 +3,40 @@ import {
   firebaseAuth,
   timestamp,
 } from './firebaseInitializer';
-import { replace } from 'ramda';
+import { Observable } from 'rxjs/Observable';
+import pathToRegexp from 'path-to-regexp';
 
-class Connector {
-  constructor(ref) {
-    this.ref = ref;
-  }
-  push(data) {
-    this.ref.push({
-      data,
-      createdAt: timestamp,
-    });
-  }
-  set(data) {
-    const { key, ...val } = data;
-    this.ref.child(key).set({
-      data: val,
-      updatedAt: timestamp,
-    });
-  }
-  update(data) {
-    const { key, ...val } = data;
-    this.ref.child(key).update({
-      data: val,
-      updatedAt: timestamp,
-    });
-  }
-  once(callback) {
-    let action;
-    this.ref.once('value', (snapshot) => {
-      const children = [];
-      snapshot.forEach((childSnapshot) => {
-        const key = childSnapshot.key;
-        const childData = childSnapshot.val();
-        children.push({ key, ...childData });
-      });
-      action = callback(children);
-    });
-    return action;
-  }
-  onChildAdded(callback) {
-    this.ref.on('child_added', data => callback({ key: data.key, ...data.val()}));
-  }
-  onChildChanged(callback) {
-    this.ref.on('child_changed', data => callback({ key: data.key, ...data.val()}));
-  }
-  onChildRemoved(callback) {
-    this.ref.on('child_removed', data => callback({ key: data.key, ...data.val()}));
-  }
-  off() {
-    this.ref.off();
+class Connector extends Observable {
+  constructor(path) {
+    super();
+    const uid = firebaseAuth.currentUser.uid;
+    const re = pathToRegexp('/:root/:uid?/:category?');
+    const root = re.exec(path)[1];
+    this.ref = firebaseDb.ref(`${root}/${uid}`);
+    const value$ =
+      Observable.fromPromise(this.ref.once('value'))
+        .map(snapshot => ({ type: `${root}/loadSuccess`, payload: snapshot.val() }))
+        .catch(err => ({ type: `${root}/loadFailed` }));
+    const childAdded$ =
+      Observable.fromEvent(this.ref, 'child_added')
+        .map(snapshot => ({ type: `${root}/childAdded`, payload: snapshot.val() }))
+    const childChanged$ =
+      Observable.fromEvent(this.ref, 'child_changed')
+        .map(snapshot => ({ type: `${root}/childChanged`, payload: snapshot.val() }))
+    const childRemoved$ =
+      Observable.fromEvent(this.ref, 'child_removed')
+        .map(snapshot => ({ type: `${root}/childRemoved`, payload: snapshot.val() }))
+    this.source = Observable.from([
+      value$,
+      childAdded$,
+      childChanged$,
+      childRemoved$,
+    ]).mergeAll();
   }
 }
 
-let uid;
-firebaseAuth.onAuthStateChanged((user) => {
-  if (user) {
-    uid = user.uid;
-  }
-})
-
 const connect = ({ path }) => {
-  // replace placehold user id to current user id
-  const _path = replace(/\/uid\//, uid, path);
-  const ref = firebaseDb.ref(_path);
-  return new Connector(ref);
+  return new Connector(path);
 }
 
 export default connect;
