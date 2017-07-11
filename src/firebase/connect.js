@@ -19,6 +19,7 @@ class Connector extends Observable {
         .catch(err => ({ type: `${root}/loadFailed` }));
     const childAdded$ =
       Observable.fromEvent(this.ref, 'child_added')
+        .skip(1)
         .map(snapshot => ({ type: `${root}/childAdded`, payload: snapshot.val() }))
     const childChanged$ =
       Observable.fromEvent(this.ref, 'child_changed')
