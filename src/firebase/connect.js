@@ -29,22 +29,13 @@ class Connector extends Observable {
     const childAdded$ =
       Observable.fromEvent(this.ref.orderByChild('createdAt').startAt(Date.now()), 'child_added')
         // Because using once to load initial data, skip the first push from child_added
-        .map(snapshot => createSuccess({
-          key: snapshot.key,
-          ...snapshot.val(),
-        }))
+        .map(snapshot => createSuccess(snapshot.val()))
     const childChanged$ =
       Observable.fromEvent(this.ref, 'child_changed')
-        .map(snapshot => updateSuccess({
-          key: snapshot.key,
-          ...snapshot.val(),
-        }))
+        .map(snapshot => updateSuccess(snapshot.val()))
     const childRemoved$ =
       Observable.fromEvent(this.ref, 'child_removed')
-        .map(snapshot => removeSuccess({
-          key: snapshot.key,
-          ...snapshot.val(),
-        }))
+        .map(snapshot => removeSuccess(snapshot.val()))
     this.source = Observable.from([
       value$.concat(childAdded$),
       childChanged$,
@@ -53,12 +44,14 @@ class Connector extends Observable {
   }
 
   push = (data) => {
+    const key = this.ref.push().key;
     const newData = {
+      key,
       updatedAt: timestamp,
       createdAt: timestamp,
       ...data,
     };
-    this.ref.push(newData);
+    this.ref.child(key).set(newData);
   }
 
   unsubscribe = () => {
