@@ -1,9 +1,12 @@
 import React, { PureComponent } from 'react';
-import styles from './Toolbar.module.css';
-import CreateFormModal from './CreateFormModal';
-
+import { connect } from 'react-redux';
 import { Button, Input } from 'antd'; 
 
+import styles from './Toolbar.module.css';
+import CreateFormModal from './CreateFormModal';
+import { createForm } from '../actions';
+
+@connect(null, mapDispatchToProps)
 export default class ToolBar extends PureComponent {
   state = {
     visible: false,
@@ -14,6 +17,21 @@ export default class ToolBar extends PureComponent {
   handleCancel = () => {
     this.setState({ visible: false });
   }
+  handleCreate = () => {
+    const form = this.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+      console.log('Received values of form:', values);
+      this.props.createForm(values);
+      form.resetFields();
+      this.setState({ visible: false });
+    });
+  }
+  saveFormRef = (form) => {
+    this.form = form;
+  }
   render() {
     const {
       toolbar,
@@ -23,7 +41,9 @@ export default class ToolBar extends PureComponent {
     return (
       <div className={toolbar}>
         <CreateFormModal
+          ref={this.saveFormRef}
           visible={this.state.visible}
+          onCreate={this.handleCreate}
           onCancel={this.handleCancel}
         />
         <div className={createFormWrapper}>
@@ -39,5 +59,11 @@ export default class ToolBar extends PureComponent {
         </div>
       </div>
     );
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createForm: payload => dispatch(createForm(payload)),
   }
 }

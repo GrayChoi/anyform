@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Modal } from 'antd';
+import { Form, Modal, Input } from 'antd';
 
 const CreateFormModal = Form.create()(
   (props) => {
@@ -13,10 +13,17 @@ const CreateFormModal = Form.create()(
         onCancel={onCancel}
         onOk={onCreate}
       >
-        <p>test</p>
-        <p>test</p>
-        <p>test</p>
-        <p>test</p>
+        <Form layout="vertical">
+          <Form.Item label="name">
+            {
+              getFieldDecorator('name', {
+                rules: [{ required: true, message: 'Please input the name of form.' }],
+              })(
+                <Input />
+              )
+            }
+          </Form.Item>
+        </Form>
       </Modal>
     );
   }

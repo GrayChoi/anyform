@@ -20,11 +20,21 @@ export const createFormSuccess = payload => ({
 });
 
 export const updateForm = payload => ({
-  type: actionTypes.CREATE_FORM,
+  type: actionTypes.UPDATE_FORM,
   payload,
 });
 
-export const deleteForm = payload => ({
-  type: actionTypes.CREATE_FORM,
+export const updateFormSuccess = payload => ({
+  type: actionTypes.UPDATE_FORM_SUCCESS,
+  payload,
+});
+
+export const removeForm = payload => ({
+  type: actionTypes.REMOVE_FORM,
+  payload,
+});
+
+export const removeFormSuccess = payload => ({
+  type: actionTypes.REMOVE_FORM_SUCCESS,
   payload,
 });

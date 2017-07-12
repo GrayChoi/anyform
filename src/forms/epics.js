@@ -4,17 +4,25 @@ import { Observable } from "rxjs/Observable";
 import pathToRegexp from 'path-to-regexp';
 import { connect } from '../firebase';
 import { not, compose } from 'ramda';
-// import * as actionTypes from './actionTypes';
-// import {
-//   loadForms,
-//   loadFormSuccess,
-//   createFormSuccess,
-//   updateForm,
-//   deleteForm,
-// } from './actions';
+import * as actionTypes from './actionTypes';
+import {
+  loadForms,
+  loadFormSuccess,
+  createFormSuccess,
+  updateForm,
+  updateFormSuccess,
+  removeForm,
+  removeFormSuccess,
+} from './actions';
 
 const path = '/forms/uid';
 const re = pathToRegexp('/forms/:category?');
+const listeners = {
+  loadSuccess: loadFormSuccess,
+  createSuccess: createFormSuccess,
+  updateSuccess: updateFormSuccess,
+  removeSuccess: removeFormSuccess,
+};
 const isFormsPath = ({ payload: { pathname } }) => {
   if(re.exec(pathname)) {
     return true;
@@ -27,8 +35,16 @@ const watchFormsEpic = action$ =>
     .filter(isFormsPath)
     .mergeMap(
       () =>
-        connect({ path })
+        connect({ path, listeners })
           .takeUntil(action$.ofType(LOCATION_CHANGE).filter(compose(not, isFormsPath)))
     );
 
-export default watchFormsEpic;
+const createFormEpic = action$ =>
+  action$.ofType(actionTypes.CREATE_FORM)
+    .map(({ payload }) => connect({ path }).push(payload))
+    .ignoreElements();
+
+export default combineEpics(
+  watchFormsEpic,
+  createFormEpic,
+);
