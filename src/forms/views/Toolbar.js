@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Button, Input } from 'antd'; 
 
 import styles from './Toolbar.module.css';
 import CreateFormModal from './CreateFormModal';
-import { createForm } from '../actions';
 
-@connect(null, mapDispatchToProps)
-export default class ToolBar extends PureComponent {
+const noop = () => {};
+export default class Toolbar extends PureComponent {
   state = {
     visible: false,
   }
@@ -24,7 +23,7 @@ export default class ToolBar extends PureComponent {
         return;
       }
       console.log('Received values of form:', values);
-      this.props.createForm(values);
+      this.props.onClickCreateButton(values);
       form.resetFields();
       this.setState({ visible: false });
     });
@@ -62,8 +61,10 @@ export default class ToolBar extends PureComponent {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    createForm: payload => dispatch(createForm(payload)),
-  }
-}
+Toolbar.propTypes = {
+  onClickCreateButton: PropTypes.func,
+};
+
+Toolbar.defaultProps = {
+  onClickCreateButton: noop,
+};

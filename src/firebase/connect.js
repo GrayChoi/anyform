@@ -46,12 +46,21 @@ class Connector extends Observable {
   push = (data) => {
     const key = this.ref.push().key;
     const newData = {
+      ...data,
       key,
       updatedAt: timestamp,
       createdAt: timestamp,
-      ...data,
     };
     this.ref.child(key).set(newData);
+  }
+
+  update = (data) => {
+    const key = data.key;
+    const newData = {
+      ...data,
+       updatedAt: timestamp,
+    };
+    this.ref.child(key).update(newData);
   }
 
   unsubscribe = () => {

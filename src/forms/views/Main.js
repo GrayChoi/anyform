@@ -1,21 +1,38 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import FormList from './FormList';
+import styles from './Main.module.css';
 
 export default class Main extends PureComponent {
   static propTypes = {
-    records: PropTypes.object,
+    records: PropTypes.objectOf(PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      createdAt: PropTypes.number.isRequired,
+      updatedAt: PropTypes.number.isRequired,
+    })),
   };
   static defaultProps = {
     records: {},
   };
+  handleCellChange = (payload) => {
+    this.props.onCellChange(payload);
+  }
   renderFormList = () => {
     const records = Object.values(this.props.records);
-    console.log(records);
-    return records.map(record => <div key={record.key}>{record.name}</div>);
+    return (
+      <FormList
+        onCellChange={this.handleCellChange}
+        dataSource={records}
+      />
+    );
   }
   render() {
+    const {
+      container,
+    } = styles;
     return (
-      <div>
+      <div className={container}>
         {this.renderFormList()}
       </div>
     );

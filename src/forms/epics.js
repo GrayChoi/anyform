@@ -44,7 +44,13 @@ const createFormEpic = action$ =>
     .map(({ payload }) => connect({ path }).push(payload))
     .ignoreElements();
 
+const updateFormEpic = action$ =>
+  action$.ofType(actionTypes.UPDATE_FORM)
+    .map(({ payload }) => connect({ path }).update(payload))
+    .ignoreElements();
+
 export default combineEpics(
   watchFormsEpic,
   createFormEpic,
+  updateFormEpic,
 );

@@ -7,11 +7,18 @@ import Toolbar from './Toolbar';
 import SideNavBar from './SideNavbar';
 import Main from './Main';
 import * as categorys from '../constants/categorys';
+import * as actions from '../actions';
 
 @connect(({ forms })=> {
  return {
    formRecords: forms.records,
  };
+}, (dispatch) => {
+  return {
+    updateForm: payload => dispatch(actions.updateForm(payload)),
+    createForm: payload => dispatch(actions.createForm(payload)),
+    removeForm: payload => dispatch(actions.removeForm(payload)),
+  };
 })
 export default class Container extends Component {
 
@@ -41,18 +48,27 @@ export default class Container extends Component {
       mainWrapper,
     } = styles;
     console.log(this.props.params.category)
-    const { formRecords } = this.props;
+    const {
+      formRecords,
+      createForm,
+      updateForm,
+    } = this.props;
     return (
       <div className={container}>
         <div className={toolbarWrapper}>
-          <Toolbar />
+          <Toolbar
+            onClickCreateButton={createForm}
+          />
         </div>
         <div className={bodyWrapper}>
           <div className={sideNavBarWrapper}>
             <SideNavBar />
           </div>
           <div className={mainWrapper}>
-            <Main records={formRecords} />
+            <Main
+              records={formRecords}
+              onCellChange={updateForm}
+            />
           </div>
         </div>
       </div>
