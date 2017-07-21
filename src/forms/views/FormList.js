@@ -10,28 +10,20 @@ export default class FormList extends PureComponent {
   constructor(props) {
     super(props);
     this.columns = [{
+      width: 20,
       render: (text, record, index) => (
         <Icon type="star-o" style={{ fontSize: '24px' }}/>
       ),
     }, {
       title: 'name',
       dataIndex: 'name',
-      width: '60%',
       render: (text, record, index) => (
         <EditableCell
           value={text}
           onChange={this.onCellChange(record.key, 'name')}
         />
       )
-    }, {
-      render: (text, record, index) => (
-        <Icon type="star-o" style={{ fontSize: '24px' }}/>
-      ),
     }]
-    this.rowSelection = {
-      onChange: this.onRowChange,
-      getCheckboxProps: this.getCheckboxProps,
-    };
   }
 
   onCellChange = (key, prop) => {
@@ -48,15 +40,15 @@ export default class FormList extends PureComponent {
   rowClassName = () => styles.recordRow;
 
   onRowChange = (selectedRowKeys, selectedRows) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    this.props.selectForm(selectedRowKeys);
   }
 
-  getCheckboxProps = record => ({
-    disabled: record.name === 'Disabled User',
-  })
-
   render() {
-    const { dataSource } = this.props;
+    const { dataSource, selectedFormKeys } = this.props;
+    this.rowSelection = {
+      selectedRowKeys: selectedFormKeys,
+      onChange: this.onRowChange,
+    };
     return (
       <Table
         dataSource={dataSource}

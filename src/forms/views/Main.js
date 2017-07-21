@@ -20,10 +20,13 @@ export default class Main extends PureComponent {
   }
   renderFormList = () => {
     const records = Object.values(this.props.records);
+    const { selectedFormKeys, selectForm } = this.props;
     return (
       <FormList
         onCellChange={this.handleCellChange}
+        selectForm={selectForm}
         dataSource={records}
+        selectedFormKeys={selectedFormKeys}
       />
     );
   }

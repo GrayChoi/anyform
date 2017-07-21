@@ -38,3 +38,10 @@ export const removeFormSuccess = payload => ({
   type: actionTypes.REMOVE_FORM_SUCCESS,
   payload,
 });
+
+export const selectForm = selectedFormKeys => ({
+  type: actionTypes.SELECT_FORM,
+  payload: {
+    selectedFormKeys,
+  },
+});

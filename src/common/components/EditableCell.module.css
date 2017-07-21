@@ -9,6 +9,7 @@
 
 .editableCellTextWrapper {
   padding: 5px 24px 5px 5px;
+  text-align: left;
 }
 
 .editableCellIcon,

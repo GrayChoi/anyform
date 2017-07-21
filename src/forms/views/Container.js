@@ -12,12 +12,14 @@ import * as actions from '../actions';
 @connect(({ forms })=> {
  return {
    formRecords: forms.records,
+   selectedFormKeys: forms.selectedFormKeys,
  };
 }, (dispatch) => {
   return {
     updateForm: payload => dispatch(actions.updateForm(payload)),
     createForm: payload => dispatch(actions.createForm(payload)),
     removeForm: payload => dispatch(actions.removeForm(payload)),
+    selectForm: selectedFormKeys => dispatch(actions.selectForm(selectedFormKeys)),
   };
 })
 export default class Container extends Component {
@@ -31,6 +33,7 @@ export default class Container extends Component {
         categorys.TRASH,
       ]),
     }),
+    selectedFormKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   }
 
   static defaultProps = {
@@ -52,6 +55,8 @@ export default class Container extends Component {
       formRecords,
       createForm,
       updateForm,
+      selectForm,
+      selectedFormKeys,
     } = this.props;
     return (
       <div className={container}>
@@ -67,6 +72,8 @@ export default class Container extends Component {
           <div className={mainWrapper}>
             <Main
               records={formRecords}
+              selectForm={selectForm}
+              selectedFormKeys={selectedFormKeys}
               onCellChange={updateForm}
             />
           </div>

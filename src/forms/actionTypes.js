@@ -7,3 +7,5 @@ export const UPDATE_FORM = 'forms/updateForm';
 export const UPDATE_FORM_SUCCESS = 'forms/updateFormSucess';
 export const REMOVE_FORM = 'forms/removeForm';
 export const REMOVE_FORM_SUCCESS = 'forms/removeFormSuccess';
+
+export const SELECT_FORM = 'forms/selectForm';

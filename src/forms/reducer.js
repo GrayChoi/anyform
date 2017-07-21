@@ -18,6 +18,11 @@ export default handleActions({
     const records = reject(form => form.key === payload.key, state.records);
     return { ...state, records };
   },
+  // Selected items in form list.
+  [actionTyps.SELECT_FORM](state, { payload: { selectedFormKeys } }) {
+    return { ...state, selectedFormKeys };
+  },
 }, {
   records: {},
+  selectedFormKeys: [],
 });
