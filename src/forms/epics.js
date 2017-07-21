@@ -1,17 +1,13 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { combineEpics } from 'redux-observable';
-import { Observable } from "rxjs/Observable";
 import pathToRegexp from 'path-to-regexp';
 import { connect } from '../firebase';
 import { not, compose } from 'ramda';
 import * as actionTypes from './actionTypes';
 import {
-  loadForms,
   loadFormSuccess,
   createFormSuccess,
-  updateForm,
   updateFormSuccess,
-  removeForm,
   removeFormSuccess,
 } from './actions';
 
