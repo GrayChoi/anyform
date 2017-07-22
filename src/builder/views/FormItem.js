@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
-
+import * as propTypes from '../propTypes';
 import ItemTypes from '../../common/constants/ItemTypes';
 import styles from './FormItem.module.css';
 
@@ -24,11 +23,12 @@ const formItemSource = {
 )
 export default class FormItem extends React.Component {
   static propTypes = {
-    label: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
+    label: propTypes.label.isRequired,
+    type: propTypes.type.isRequired,
+    color: propTypes.color.isRequired,
     // Injected by React DnD:
-    connectDragSource: PropTypes.func.isRequired,
-    isDragging: PropTypes.bool.isRequired
+    connectDragSource: propTypes.dndAction.isRequired,
+    isDragging: propTypes.isDragging.isRequired,
   }
 
   render() {

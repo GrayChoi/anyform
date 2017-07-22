@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
+import { isEmpty, compose } from 'ramda';
+import { Input, InputNumber, Select, DatePicker, Rate } from 'antd';
+
 import ItemTypes from '../../common/constants/ItemTypes';
 import FormItemWrapper from './FormItemWrapper';
 import PlaceHolder from './PlaceHolder';
 import styles from './Form.module.css';
-
 import FormItemTypes from '../../common/constants/FormItemTypes';
-
-import { isEmpty, compose } from 'ramda';
-import { Input, InputNumber, Select, DatePicker, Rate } from 'antd';
+import * as propTypes from '../propTypes';
 
 const FormItemTarget = {
   drop({ saveFormItem }) {
@@ -34,9 +33,12 @@ const FormItemTarget = {
 )
 export default class Form extends Component {
   static propTypes = {
-    connectDropTarget: PropTypes.func.isRequired,
-    isOver: PropTypes.bool.isRequired,
-    canDrop: PropTypes.bool.isRequired,
+    connectDropTarget: propTypes.dndAction.isRequired,
+    isOver: propTypes.bool.isRequired,
+    canDrop: propTypes.bool.isRequired,
+    removeCandidateFormItem: propTypes.action.isRequired,
+    candidateItem: propTypes.formItem.isRequired,
+    formItems: propTypes.formItems.isRequired,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -46,7 +48,7 @@ export default class Form extends Component {
   }
 
   renderCandidateItem() {
-    const { candidateItem } = this.props.stage;
+    const { candidateItem } = this.props;
     if (!isEmpty(candidateItem)) {
       return (
         <div style={{ opacity: 0.5, margin: '15px' }}>
@@ -57,7 +59,7 @@ export default class Form extends Component {
   }
 
   renderFormItem = () => {
-    const { formItems } = this.props.stage;
+    const { formItems } = this.props;
     return formItems.map(compose(wrap, generateFormItem))
   }
 
@@ -71,7 +73,7 @@ export default class Form extends Component {
   }
 
   isEmptyForm = () => {
-    return this.props.stage.formItems.length === 0;
+    return this.props.formItems.length === 0;
   }
 
   render() {
@@ -85,7 +87,8 @@ export default class Form extends Component {
   }
 }
 
-function generateFormItem({ type }) {
+function generateFormItem(candidateItem) {
+  const { type } = candidateItem;
   switch (type) {
     case FormItemTypes.INPUT: {
       return <Input />

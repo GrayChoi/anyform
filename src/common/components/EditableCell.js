@@ -1,13 +1,25 @@
 import React, { PureComponent } from 'react';
 import { Input, Icon } from 'antd';
-
+import * as propTypes from '../propTypes';
 import styles from './EditableCell.module.css';
 
+const noop = () => {};
 export default class EditableCell extends PureComponent {
+  static propTypes = {
+    value: propTypes.string,
+    onChange: propTypes.func,
+  }
+
+  static defaultProps = {
+    value: '',
+    onChange: noop,
+  }
+
   state = {
     value: this.props.value,
     editable: false,
   }
+
   componentWillReceiveProps(props) {
     if (props.value !== this.state.value) {
       this.setState({

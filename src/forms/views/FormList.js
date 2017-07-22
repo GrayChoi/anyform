@@ -1,11 +1,9 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { Table, Icon } from 'antd';
-
+import * as propTypes from '../propTypes';
 import styles from './FormList.module.css';
 import { EditableCell } from '../../common/components'
 
-const noop = () => {};
 export default class FormList extends PureComponent {
   constructor(props) {
     super(props);
@@ -64,11 +62,10 @@ export default class FormList extends PureComponent {
 }
 
 FormList.propTypes = {
-  onClickRecordRow: PropTypes.func,
-  onCellChange: PropTypes.func,
-};
-
-FormList.defaultProps = {
-  onClickRecordRow: noop,
-  onCellChange: noop,
+  onClickRecordRow: propTypes.action.isRequired,
+  dataSource: propTypes.form.isRequired,
+  selectForm: propTypes.action.isRequired,
+  onCellChange: propTypes.action.isRequired,
+  // Selected form keys
+  selectedFormKeys: propTypes.selectedFormKeys.isRequired,
 };

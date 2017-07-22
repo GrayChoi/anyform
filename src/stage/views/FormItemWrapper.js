@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
+import * as propTypes from '../propTypes';
 import styles from './FormItemWrapper.module.css';
 
 const springSetting1 = {stiffness: 70, damping: 10};
 
 // TODO: color border
 export default class FormItemWrapper extends Component {
+
+  static propTypes = {
+    children: propTypes.children.isRequired,
+  };
+
   state = {
     className: styles.wrapper,
   };
+
   renderBody = () => {
     const { children } = this.props;
     return (

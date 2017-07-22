@@ -1,16 +1,14 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as propTypes from '../propTypes';
 import FormList from './FormList';
 import styles from './Main.module.css';
 
 export default class Main extends PureComponent {
   static propTypes = {
-    records: PropTypes.objectOf(PropTypes.shape({
-      key: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      createdAt: PropTypes.number.isRequired,
-      updatedAt: PropTypes.number.isRequired,
-    })),
+    records: propTypes.form,
+    selectedFormKeys: propTypes.selectedFormKeys.isRequired,
+    selectForm: propTypes.action.isRequired,
+    onCellChange: propTypes.action.isRequired,
   };
   static defaultProps = {
     records: {},

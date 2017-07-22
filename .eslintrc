@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "react-app"
+  ],
+  "plugins": ["react"],
+  "rules": {
+    "react/prop-types": [1]
+  }
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import * as propTypes from '../propTypes';
 import styles from './Container.module.css';
 
 import Toolbar from './Toolbar';
@@ -25,15 +25,12 @@ import * as actions from '../actions';
 export default class Container extends Component {
 
   static propTypes = {
-    params: PropTypes.shape({
-      category: PropTypes.oneOf([
-        categorys.MY_FORMS,
-        categorys.FAVORITES,
-        categorys.ARCHIVE,
-        categorys.TRASH,
-      ]),
-    }),
-    selectedFormKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+    params: propTypes.category,
+    formRecords: propTypes.form,
+    selectedFormKeys: propTypes.selectedFormKeys.isRequired,
+    createForm: propTypes.action.isRequired,
+    updateForm: propTypes.action.isRequired,
+    selectForm: propTypes.action.isRequired,
   }
 
   static defaultProps = {
@@ -50,7 +47,6 @@ export default class Container extends Component {
       sideNavBarWrapper,
       mainWrapper,
     } = styles;
-    console.log(this.props.params.category)
     const {
       formRecords,
       createForm,
@@ -58,6 +54,7 @@ export default class Container extends Component {
       selectForm,
       selectedFormKeys,
     } = this.props;
+    console.log(this.props.params);
     return (
       <div className={container}>
         <div className={toolbarWrapper}>
