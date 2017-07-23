@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { reject, lensProp, set } from 'ramda';
+import { reject, lensProp, set, prop, contains } from 'ramda';
 import * as actionTyps from './actionTypes';
 
 export default handleActions({
@@ -14,9 +14,11 @@ export default handleActions({
     const records = set(keyLens, payload, state.records);
     return { ...state, records };
   },
-  [actionTyps.REMOVE_FORM_SUCCESS](state, { payload }) {
-    const records = reject(form => form.key === payload.key, state.records);
-    return { ...state, records };
+  [actionTyps.REMOVE_FORMS_SUCCESS](state, { payload }) {
+    const keys = payload.map(prop('key'));
+    const newRecords =
+      reject(record => contains(prop('key')(record), keys))(state.records);
+    return { ...state, records: newRecords };
   },
   // Selected items in form list.
   [actionTyps.SELECT_FORM](state, { payload: { selectedFormKeys } }) {

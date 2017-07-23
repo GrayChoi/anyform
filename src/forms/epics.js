@@ -8,7 +8,7 @@ import {
   loadFormSuccess,
   createFormSuccess,
   updateFormSuccess,
-  removeFormSuccess,
+  removeFormsSuccess,
 } from './actions';
 
 const path = '/forms/uid';
@@ -17,7 +17,7 @@ const listeners = {
   loadSuccess: loadFormSuccess,
   createSuccess: createFormSuccess,
   updateSuccess: updateFormSuccess,
-  removeSuccess: removeFormSuccess,
+  removeSuccess: removeFormsSuccess,
 };
 const isFormsPath = ({ payload: { pathname } }) => {
   if(re.exec(pathname)) {
@@ -45,8 +45,14 @@ const updateFormEpic = action$ =>
     .map(({ payload }) => connect({ path }).update(payload))
     .ignoreElements();
 
+const removeFormsEpic = action$ =>
+  action$.ofType(actionTypes.REMOVE_FORMS)
+    .map(({ payload }) => connect({ path }).removeAll(payload))
+    .ignoreElements();
+
 export default combineEpics(
   watchFormsEpic,
   createFormEpic,
   updateFormEpic,
+  removeFormsEpic,
 );

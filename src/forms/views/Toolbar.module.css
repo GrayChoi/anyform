@@ -27,3 +27,22 @@
   padding: 15px;
   flex: 4;
 }
+
+.actionButtons {
+  display: flex;
+  justify-content: flex-start;
+  padding: 15px;
+  flex: 5;
+}
+
+.inputSearch {
+  display: flex;
+  justify-content: flex-start;
+  padding: 15px;
+  flex: 1;
+}
+
+.removeButton {
+  display: flex;
+  align-self: flex-start;
+}
