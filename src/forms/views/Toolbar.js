@@ -1,21 +1,34 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as propTypes from '../propTypes';
 import { Button, Input } from 'antd'; 
 
 import styles from './Toolbar.module.css';
 import CreateFormModal from './CreateFormModal';
 
-const noop = () => {};
 export default class Toolbar extends PureComponent {
+
+  static propTypes = {
+    onClickCreateButton: propTypes.action.isRequired,
+    onClickRemoveButton: propTypes.action.isRequired,
+    removeButtonVisible: propTypes.action,
+  };
+
+  static defaultProps = {
+    removeButtonVisible: false,
+  };
+
   state = {
     visible: false,
   }
+
   showModal = () => {
     this.setState({ visible: true });
   }
+
   handleCancel = () => {
     this.setState({ visible: false });
   }
+
   handleCreate = () => {
     const form = this.form;
     form.validateFields((err, values) => {
@@ -28,14 +41,51 @@ export default class Toolbar extends PureComponent {
       this.setState({ visible: false });
     });
   }
+
   saveFormRef = (form) => {
     this.form = form;
   }
+
+  renderRemoveButton = () => {
+    const { removeButtonVisible, onClickRemoveButton } = this.props;
+    if (removeButtonVisible) {
+      return (
+        <div className={styles.removeButton}>
+          <Button type="primary" size="large" icon="delete" onClick={onClickRemoveButton}>
+            Delete
+          </Button>
+        </div>
+      );
+    }
+    return null;
+  }
+
+  renderInputSeach = () => (
+    <div className={styles.inputSearch}>
+      <Input.Search
+        placeholder="Search"
+        style={{ width: '200px' }}
+      />
+    </div>
+  );
+
+  renderActionButtons = () => (
+    <div className={styles.actionButtons}>
+      {this.renderRemoveButton()}
+    </div>
+  );
+
+  renderActions = () => (
+    <div className={styles.formActionsWrapper}>
+      {this.renderActionButtons()}
+      {this.renderInputSeach()}
+    </div>
+  );
+
   render() {
     const {
       toolbar,
       createFormWrapper,
-      formActionsWrapper,
     } = styles;
     return (
       <div className={toolbar}>
@@ -50,21 +100,8 @@ export default class Toolbar extends PureComponent {
             create form
           </Button>
         </div>
-        <div className={formActionsWrapper}>
-          <Input.Search
-            placeholder="Search"
-            style={{ width: '200px' }}
-          />
-        </div>
+        {this.renderActions()}
       </div>
     );
   }
 }
-
-Toolbar.propTypes = {
-  onClickCreateButton: PropTypes.func,
-};
-
-Toolbar.defaultProps = {
-  onClickCreateButton: noop,
-};

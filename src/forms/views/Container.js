@@ -18,7 +18,7 @@ import * as actions from '../actions';
   return {
     updateForm: payload => dispatch(actions.updateForm(payload)),
     createForm: payload => dispatch(actions.createForm(payload)),
-    removeForm: payload => dispatch(actions.removeForm(payload)),
+    removeForms: selectedFormKeys => dispatch(actions.removeForms(selectedFormKeys)),
     selectForm: selectedFormKeys => dispatch(actions.selectForm(selectedFormKeys)),
   };
 })
@@ -31,12 +31,22 @@ export default class Container extends Component {
     createForm: propTypes.action.isRequired,
     updateForm: propTypes.action.isRequired,
     selectForm: propTypes.action.isRequired,
+    removeForms: propTypes.action.isRequired,
   }
 
   static defaultProps = {
     params: {
       category: categorys.MY_FORMS,
     }
+  }
+
+  handleCreateForms = (data) => {
+    this.props.createForm(data);
+  }
+
+  handleRemoveForms = () => {
+    const { selectedFormKeys, removeForms } = this.props;
+    removeForms(selectedFormKeys);
   }
 
   render() {
@@ -49,17 +59,20 @@ export default class Container extends Component {
     } = styles;
     const {
       formRecords,
-      createForm,
       updateForm,
       selectForm,
       selectedFormKeys,
     } = this.props;
-    console.log(this.props.params);
+    // the remove button of toolbar is visible ?
+    const removeButtonVisible = selectedFormKeys.length > 0;
+    console.log(removeButtonVisible);
     return (
       <div className={container}>
         <div className={toolbarWrapper}>
           <Toolbar
-            onClickCreateButton={createForm}
+            onClickCreateButton={this.handleCreateForms}
+            onClickRemoveButton={this.handleRemoveForms}
+            removeButtonVisible={removeButtonVisible}
           />
         </div>
         <div className={bodyWrapper}>

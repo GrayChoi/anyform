@@ -29,14 +29,14 @@ export const updateFormSuccess = payload => ({
   payload,
 });
 
-export const removeForm = payload => ({
-  type: actionTypes.REMOVE_FORM,
+export const removeForms = payload => ({
+  type: actionTypes.REMOVE_FORMS,
   payload,
 });
 
-export const removeFormSuccess = payload => ({
-  type: actionTypes.REMOVE_FORM_SUCCESS,
-  payload,
+export const removeFormsSuccess = selectedFormKeys => ({
+  type: actionTypes.REMOVE_FORMS_SUCCESS,
+  payload: selectedFormKeys,
 });
 
 export const selectForm = selectedFormKeys => ({
