@@ -18,7 +18,8 @@ export default handleActions({
     const keys = payload.map(prop('key'));
     const newRecords =
       reject(record => contains(prop('key')(record), keys))(state.records);
-    return { ...state, records: newRecords };
+    const newSelectedFormKeys = reject(key => contains(key, keys))(state.selectedFormKeys);
+    return { ...state, records: newRecords, selectedFormKeys: newSelectedFormKeys };
   },
   // Selected items in form list.
   [actionTyps.SELECT_FORM](state, { payload: { selectedFormKeys } }) {

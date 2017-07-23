@@ -10,7 +10,7 @@ export default class Toolbar extends PureComponent {
   static propTypes = {
     onClickCreateButton: propTypes.action.isRequired,
     onClickRemoveButton: propTypes.action.isRequired,
-    removeButtonVisible: propTypes.action,
+    removeButtonVisible: propTypes.bool,
   };
 
   static defaultProps = {
