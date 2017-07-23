@@ -5,7 +5,7 @@ import {
 } from './firebaseInitializer';
 import { Observable } from 'rxjs/Observable';
 import pathToRegexp from 'path-to-regexp';
-import { compose, not, isEmpty } from 'ramda';
+import { compose, not, isEmpty, sortBy, path } from 'ramda';
 
 const connectorPool = {};
 
@@ -30,11 +30,34 @@ class Connector extends Observable {
     const childAdded$ =
       Observable.fromEvent(this.ref.orderByChild('createdAt').startAt(Date.now()), 'child_added')
         // Because using once to load initial data, skip the first push from child_added
-        .map(snapshot => createSuccess(snapshot.val()))
+        .map(snapshot => ({ type: 'child_added' , value: snapshot.val() }))
   
     const childChanged$ =
       Observable.fromEvent(this.ref, 'child_changed')
-        .map(snapshot => updateSuccess(snapshot.val()));
+        .map(snapshot => ({ type: 'child_changed' , value: snapshot.val() }));
+
+    const childAddedOrChanged$ =
+      Observable.from([childAdded$, childChanged$])
+        .mergeMap(event => event)
+        .bufferTime(1000, 1000, 1000)
+        .filter(compose(not, isEmpty))
+        .map(sortBy(path(['value', 'updatedAt'])))
+        .mergeMap(events => {
+          const results = events.reduce((result, event) => {
+            const key = path(['value', 'key'])(event);
+            if (!result[key]) {
+              result[key] = event;
+            } else {
+              result[key].value = event.value;
+            }
+            return result;
+          }, {});
+          return Observable.from(Object.values(results));
+        })
+        .map(val => {
+          if (val.type === 'child_added') return createSuccess(val.value);
+          return updateSuccess(val.value);
+        });
 
     const childRemoved$ =
       Observable.fromEvent(this.ref, 'child_removed')
@@ -44,8 +67,7 @@ class Connector extends Observable {
         .map(vals => removeSuccess(vals));
     
     this.source = Observable.from([
-      value$.concat(childAdded$),
-      childChanged$,
+      value$.concat(childAddedOrChanged$),
       childRemoved$,
     ]).mergeAll();
   }
