@@ -39,7 +39,7 @@ class Connector extends Observable {
     const childAddedOrChanged$ =
       Observable.from([childAdded$, childChanged$])
         .mergeAll()
-        .bufferTime(1000, 1000, 1000)
+        .bufferTime(1000, 1000)
         .filter(compose(not, isEmpty))
         .map(sortBy(rpath(['value', 'updatedAt'])))
         .mergeMap(events => {
@@ -62,7 +62,7 @@ class Connector extends Observable {
     const childRemoved$ =
       Observable.fromEvent(this.ref, 'child_removed')
         .map(snapshot => snapshot.val())
-        .bufferTime(500, 500, 1000)
+        .bufferTime(500, 500)
         .filter(compose(not, isEmpty))
         .map(vals => removeSuccess(vals));
     
