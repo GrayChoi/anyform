@@ -5,6 +5,7 @@ import {
 } from './firebaseInitializer';
 import { Observable } from 'rxjs/Observable';
 import pathToRegexp from 'path-to-regexp';
+import { compose, not, isEmpty } from 'ramda';
 
 const connectorPool = {};
 
@@ -30,12 +31,18 @@ class Connector extends Observable {
       Observable.fromEvent(this.ref.orderByChild('createdAt').startAt(Date.now()), 'child_added')
         // Because using once to load initial data, skip the first push from child_added
         .map(snapshot => createSuccess(snapshot.val()))
+  
     const childChanged$ =
       Observable.fromEvent(this.ref, 'child_changed')
-        .map(snapshot => updateSuccess(snapshot.val()))
+        .map(snapshot => updateSuccess(snapshot.val()));
+
     const childRemoved$ =
       Observable.fromEvent(this.ref, 'child_removed')
-        .map(snapshot => removeSuccess(snapshot.val()))
+        .map(snapshot => snapshot.val())
+        .bufferTime(500, 500, 1000)
+        .filter(compose(not, isEmpty))
+        .map(vals => removeSuccess(vals));
+    
     this.source = Observable.from([
       value$.concat(childAdded$),
       childChanged$,
@@ -61,6 +68,14 @@ class Connector extends Observable {
        updatedAt: timestamp,
     };
     this.ref.child(key).update(newData);
+  }
+
+  removeAll = (keys) => {
+    const updates = keys.reduce((updates, key) => {
+      updates[key] = null;
+      return updates;
+    }, {});
+    this.ref.update(updates);
   }
 
   unsubscribe = () => {
