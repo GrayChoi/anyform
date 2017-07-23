@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Table, Icon } from 'antd';
+import { contains, equals, reject } from 'ramda';
 import * as propTypes from '../propTypes';
 import styles from './FormList.module.css';
 import { EditableCell } from '../../common/components'
@@ -33,6 +34,18 @@ export default class FormList extends PureComponent {
     };
   }
 
+  handleRowClick = (record, index, evnet) => {
+    const { selectedFormKeys } = this.props;
+    const { key } = record;
+    const isSelected = contains(key, selectedFormKeys);
+    if (isSelected) {
+      this.props.selectForm(
+        reject(equals(key), selectedFormKeys));
+    } else {
+      this.props.selectForm([...selectedFormKeys, key]);
+    }
+  }
+
   rowKey = record => record.key;
 
   rowClassName = () => styles.recordRow;
@@ -54,6 +67,7 @@ export default class FormList extends PureComponent {
         rowKey={this.rowKey}
         pagination={false}
         showHeader={false}
+        onRowClick={this.handleRowClick}
         rowClassName={this.rowClassName}
         rowSelection={this.rowSelection}
       />
@@ -62,8 +76,7 @@ export default class FormList extends PureComponent {
 }
 
 FormList.propTypes = {
-  onClickRecordRow: propTypes.action.isRequired,
-  dataSource: propTypes.form.isRequired,
+  dataSource: propTypes.formList.isRequired,
   selectForm: propTypes.action.isRequired,
   onCellChange: propTypes.action.isRequired,
   // Selected form keys

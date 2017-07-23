@@ -5,7 +5,7 @@ import {
 } from './firebaseInitializer';
 import { Observable } from 'rxjs/Observable';
 import pathToRegexp from 'path-to-regexp';
-import { compose, not, isEmpty, sortBy, path } from 'ramda';
+import { compose, not, isEmpty, sortBy, path as rpath } from 'ramda';
 
 const connectorPool = {};
 
@@ -38,13 +38,13 @@ class Connector extends Observable {
 
     const childAddedOrChanged$ =
       Observable.from([childAdded$, childChanged$])
-        .mergeMap(event => event)
+        .mergeAll()
         .bufferTime(1000, 1000, 1000)
         .filter(compose(not, isEmpty))
-        .map(sortBy(path(['value', 'updatedAt'])))
+        .map(sortBy(rpath(['value', 'updatedAt'])))
         .mergeMap(events => {
           const results = events.reduce((result, event) => {
-            const key = path(['value', 'key'])(event);
+            const key = rpath(['value', 'key'])(event);
             if (!result[key]) {
               result[key] = event;
             } else {
