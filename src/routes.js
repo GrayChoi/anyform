@@ -8,6 +8,6 @@ export default (
   <Route path="/">
     <IndexRoute component={welcome} />
     <Route path="forms(/:category)" component={Forms} />
-    <Route path="build" component={Builder} />
+    <Route path="build(/:formId)" component={Builder} />
   </Route>
 );

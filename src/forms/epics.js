@@ -11,7 +11,7 @@ import {
   removeFormsSuccess,
 } from './actions';
 
-const path = '/forms/uid';
+const path = '/forms';
 const re = pathToRegexp('/forms/:category?');
 const listeners = {
   loadSuccess: loadFormSuccess,

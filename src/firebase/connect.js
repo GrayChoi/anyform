@@ -20,9 +20,7 @@ class Connector extends Observable {
       removeSuccess,
     }= listeners;
     const uid = firebaseAuth.currentUser.uid;
-    const re = pathToRegexp('/:root/:uid?/:category?');
-    const root = re.exec(path)[1];
-    this.ref = firebaseDb.ref(`${root}/${uid}`);
+    this.ref = firebaseDb.ref(`/users/${uid}/${path}`);
     const value$ =
       Observable.fromPromise(this.ref.once('value'))
         .map(snapshot => loadSuccess(snapshot.val()))
