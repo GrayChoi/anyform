@@ -14,8 +14,7 @@ const FormItemTarget = {
   drop({ saveFormItem }) {
     saveFormItem();
   },
-  hover({ saveCandidateFormItem, stage }, monitor) {
-    const { candidateItem } = stage;
+  hover({ saveCandidateFormItem, candidateItem }, monitor) {
     if (isEmpty(candidateItem)) {
       saveCandidateFormItem(monitor.getItem())
     }

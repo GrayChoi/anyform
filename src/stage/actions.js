@@ -3,6 +3,7 @@ import {
   REMOVE_CANDIDATE_FORM_ITEM,
   SAVE_FORM_ITEM,
   SAVE_FORM_ITEM_SUCCESS,
+  LOAD_FORM_ITEMS_SUCCESS,
 } from './actionTypes';
 
 export const saveCandidateFormItem = payload => ({
@@ -22,5 +23,10 @@ export const saveFormItem = payload => ({
 
 export const saveFormItemSuccess = payload => ({
   type: SAVE_FORM_ITEM_SUCCESS,
+  payload,
+});
+
+export const loadFormItemsSuccess = payload => ({
+  type: LOAD_FORM_ITEMS_SUCCESS,
   payload,
 });
