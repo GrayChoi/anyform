@@ -4,6 +4,7 @@ import pathToRegexp from 'path-to-regexp';
 import { not, compose, isEmpty } from 'ramda';
 import { connect } from '../firebase';
 import * as actions from './actions';
+import * as actionTypes from './actionTypes';
 
 const path = formId => `/formsItems/${formId}`;
 const re = pathToRegexp('/build/:formId?');
@@ -39,14 +40,15 @@ const watchStageEpic = action$ =>
     );
 
 const createFormItemEpic = (action$, store) => 
-  action$.ofType(actions.saveFormItem)
+  action$.ofType(actionTypes.SAVE_FORM_ITEM)
     .do(({ payload }) => {
       const { stage: { candidateItem }, routing } = store.getState();
-      if(isEmpty(candidateItem)) {
+      if(!isEmpty(candidateItem)) {
         const { pathname } = routing.locationBeforeTransitions;
         const formId = getFormId(pathname);
         const _path = path(formId);
-        connect({ path: _path }).push(payload: candidateItem);
+        console.log(_path);
+        connect({ path: _path }).push(candidateItem);
       }
     })
     .ignoreElements();
