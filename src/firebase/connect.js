@@ -4,7 +4,6 @@ import {
   timestamp,
 } from './firebaseInitializer';
 import { Observable } from 'rxjs/Observable';
-import pathToRegexp from 'path-to-regexp';
 import { compose, not, isEmpty, sortBy, path as rpath } from 'ramda';
 
 const connectorPool = {};
