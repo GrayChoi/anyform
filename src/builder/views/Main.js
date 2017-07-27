@@ -28,7 +28,7 @@ class Main extends Component {
   }
 
   render() {
-    const { main, stage } = styles;
+    const { main, stage, sidebarOpenedStage } = styles;
     const { togglePanel, leftPanelOpend } = this.props; 
     return (
       <DragDropContextProvider backend={HTML5Backend}>
@@ -39,7 +39,7 @@ class Main extends Component {
             open={leftPanelOpend} >
             {this.renderFormItems()}
           </Sidebar>
-          <div className={stage}>
+          <div className={leftPanelOpend ? sidebarOpenedStage : stage }>
             <Stage />
           </div>
         </div>

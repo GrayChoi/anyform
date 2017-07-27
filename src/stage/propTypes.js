@@ -4,7 +4,7 @@ export const action = PropTypes.func;
 
 export const formItem = PropTypes.shape({
   key: PropTypes.string,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
 });
 
 export const formItems = PropTypes.arrayOf(formItem);

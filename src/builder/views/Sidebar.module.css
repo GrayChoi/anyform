@@ -13,6 +13,7 @@
 }
 
 .SidebarOpened {
+  z-index: 1;
   transition: all ease-in-out 0.5s;
   transform: translateX(310px);
   composes: Sidebar;
