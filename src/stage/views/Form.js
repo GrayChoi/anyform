@@ -59,7 +59,7 @@ export default class Form extends Component {
 
   renderFormItem = () => {
     const { formItems } = this.props;
-    return formItems.map(compose(wrap, generateFormItem))
+    return formItems.map(formItem => compose(wrap(formItem), generateFormItem)(formItem));
   }
 
   renderFormContent = () => {
@@ -86,8 +86,8 @@ export default class Form extends Component {
   }
 }
 
-function generateFormItem(candidateItem) {
-  const { type } = candidateItem;
+function generateFormItem(formItem) {
+  const { type } = formItem;
   switch (type) {
     case FormItemTypes.INPUT: {
       return <Input />
@@ -113,6 +113,8 @@ function generateFormItem(candidateItem) {
   }
 }
 
-function wrap(item) {
-  return <FormItemWrapper>{item}</FormItemWrapper>
+function wrap(itemData) {
+  const { key = 'candidate' } = itemData;
+  return (itemComponent) =>
+    (<FormItemWrapper key={key}>{itemComponent}</FormItemWrapper>);
 }
