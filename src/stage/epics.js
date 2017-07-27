@@ -1,7 +1,7 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { combineEpics } from 'redux-observable';
 import pathToRegexp from 'path-to-regexp';
-import { not, compose, isEmpty } from 'ramda';
+import { not, compose } from 'ramda';
 import { connect } from '../firebase';
 import * as actions from './actions';
 import * as actionTypes from './actionTypes';
@@ -11,7 +11,7 @@ const re = pathToRegexp('/build/:formId?');
 const listeners = {
   loadSuccess: actions.loadFormItemsSuccess,
   createSuccess: actions.saveFormItemSuccess,
-  updateSuccess: () => {},
+  updateSuccess: actions.updateFormItemSuccess,
   removeSuccess: () => {},
 };
 const isBuildPath = ({ payload: { pathname } }) => {
@@ -42,14 +42,11 @@ const watchStageEpic = action$ =>
 const createFormItemEpic = (action$, store) => 
   action$.ofType(actionTypes.SAVE_FORM_ITEM)
     .do(({ payload }) => {
-      const { stage: { candidateItem }, routing } = store.getState();
-      if(!isEmpty(candidateItem)) {
-        const { pathname } = routing.locationBeforeTransitions;
-        const formId = getFormId(pathname);
-        const _path = path(formId);
-        console.log(_path);
-        connect({ path: _path }).push(candidateItem);
-      }
+      const { routing } = store.getState();
+      const { pathname } = routing.locationBeforeTransitions;
+      const formId = getFormId(pathname);
+      const _path = path(formId);
+      connect({ path: _path }).push(payload);
     })
     .ignoreElements();
 

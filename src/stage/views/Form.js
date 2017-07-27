@@ -11,8 +11,9 @@ import FormItemTypes from '../../common/constants/FormItemTypes';
 import * as propTypes from '../propTypes';
 
 const FormItemTarget = {
-  drop({ saveFormItem }) {
-    saveFormItem();
+  drop({ saveFormItem, removeCandidateFormItem }, monitor) {
+    saveFormItem(monitor.getItem());
+    removeCandidateFormItem();
   },
   hover({ saveCandidateFormItem, candidateItem }, monitor) {
     if (isEmpty(candidateItem)) {

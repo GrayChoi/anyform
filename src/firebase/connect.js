@@ -52,6 +52,7 @@ class Connector extends Observable {
           return Observable.from(Object.values(results));
         })
         .map(val => {
+          console.log(val)
           if (val.type === 'child_added') return createSuccess(val.value);
           return updateSuccess(val.value);
         });

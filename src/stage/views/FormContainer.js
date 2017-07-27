@@ -39,6 +39,6 @@ function mapDispatchToState(dispatch) {
   return {
     saveCandidateFormItem: payload => dispatch(saveCandidateFormItem(payload)),
     removeCandidateFormItem: () => dispatch(removeCandidateFormItem()),
-    saveFormItem: () => dispatch(saveFormItem()),
+    saveFormItem: payload => dispatch(saveFormItem(payload)),
   };
 }
