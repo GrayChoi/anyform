@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import * as propTypes from '../propTypes';
 import styles from './Container.module.css';
 
@@ -20,6 +21,7 @@ import * as actions from '../actions';
     createForm: payload => dispatch(actions.createForm(payload)),
     removeForms: selectedFormKeys => dispatch(actions.removeForms(selectedFormKeys)),
     selectForm: selectedFormKeys => dispatch(actions.selectForm(selectedFormKeys)),
+    editFormDetail: key => dispatch(push(`/build/${key}`)),
   };
 })
 export default class Container extends Component {
@@ -32,6 +34,7 @@ export default class Container extends Component {
     updateForm: propTypes.action.isRequired,
     selectForm: propTypes.action.isRequired,
     removeForms: propTypes.action.isRequired,
+    editFormDetail: propTypes.action.isRequired,
   }
 
   static defaultProps = {
@@ -40,13 +43,18 @@ export default class Container extends Component {
     }
   }
 
-  handleCreateForms = (data) => {
+  handleClickCreateForms = (data) => {
     this.props.createForm(data);
   }
 
-  handleRemoveForms = () => {
+  handleClickRemoveForms = () => {
     const { selectedFormKeys, removeForms } = this.props;
     removeForms(selectedFormKeys);
+  }
+
+  handleClickEditForm = () => {
+    const { selectedFormKeys, editFormDetail } = this.props;
+    editFormDetail(selectedFormKeys[0]);
   }
 
   render() {
@@ -65,14 +73,16 @@ export default class Container extends Component {
     } = this.props;
     // the remove button of toolbar is visible ?
     const removeButtonVisible = selectedFormKeys.length > 0;
-    console.log(removeButtonVisible);
+    const editButtonVisible = selectedFormKeys.length === 1;
     return (
       <div className={container}>
         <div className={toolbarWrapper}>
           <Toolbar
-            onClickCreateButton={this.handleCreateForms}
-            onClickRemoveButton={this.handleRemoveForms}
+            onClickCreateButton={this.handleClickCreateForms}
+            onClickRemoveButton={this.handleClickRemoveForms}
+            onClickEditButton={this.handleClickEditForm}
             removeButtonVisible={removeButtonVisible}
+            editButtonVisible={editButtonVisible}
           />
         </div>
         <div className={bodyWrapper}>

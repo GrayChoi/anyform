@@ -10,11 +10,14 @@ export default class Toolbar extends PureComponent {
   static propTypes = {
     onClickCreateButton: propTypes.action.isRequired,
     onClickRemoveButton: propTypes.action.isRequired,
+    onClickEditButton: propTypes.action.isRequired,
     removeButtonVisible: propTypes.bool,
+    editButtonVisible: propTypes.bool,
   };
 
   static defaultProps = {
     removeButtonVisible: false,
+    editButtonVisible: false,
   };
 
   state = {
@@ -35,7 +38,6 @@ export default class Toolbar extends PureComponent {
       if (err) {
         return;
       }
-      console.log('Received values of form:', values);
       this.props.onClickCreateButton(values);
       form.resetFields();
       this.setState({ visible: false });
@@ -52,7 +54,21 @@ export default class Toolbar extends PureComponent {
       return (
         <div className={styles.removeButton}>
           <Button type="primary" size="large" icon="delete" onClick={onClickRemoveButton}>
-            Delete
+            Delete Form
+          </Button>
+        </div>
+      );
+    }
+    return null;
+  }
+
+  renderEditButton = () => {
+    const { editButtonVisible, onClickEditButton } = this.props;
+    if (editButtonVisible) {
+      return (
+        <div className={styles.editButton}>
+          <Button type="primary" size="large" icon="edit" onClick={onClickEditButton}>
+            Edit Form
           </Button>
         </div>
       );
@@ -72,6 +88,7 @@ export default class Toolbar extends PureComponent {
   renderActionButtons = () => (
     <div className={styles.actionButtons}>
       {this.renderRemoveButton()}
+      {this.renderEditButton()}
     </div>
   );
 

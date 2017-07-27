@@ -44,5 +44,11 @@
 
 .removeButton {
   display: flex;
-  align-self: flex-start;
+  text-align: center;
+}
+
+.editButton {
+  display: flex;
+  margin-left: 5px;
+  text-align: center;
 }
