@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
-import { isEmpty, compose } from 'ramda';
-import { Input, InputNumber, Select, DatePicker, Rate } from 'antd';
+import { isEmpty } from 'ramda';
+import { Input, InputNumber, Select, DatePicker, Rate, Button } from 'antd';
 
 import ItemTypes from '../../common/constants/ItemTypes';
 import FormItemWrapper from './FormItemWrapper';
@@ -37,8 +37,11 @@ export default class Form extends Component {
     isOver: propTypes.bool.isRequired,
     canDrop: propTypes.bool.isRequired,
     removeCandidateFormItem: propTypes.action.isRequired,
+    selectFormItem: propTypes.action.isRequired,
+    removeFormItem: propTypes.action.isRequired,
     candidateItem: propTypes.formItem.isRequired,
     formItems: propTypes.formItems.isRequired,
+    selectedFormItemKey: propTypes.string,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -59,8 +62,22 @@ export default class Form extends Component {
   }
 
   renderFormItem = () => {
-    const { formItems } = this.props;
-    return formItems.map(formItem => compose(wrap(formItem), generateFormItem)(formItem));
+    const { formItems, selectFormItem, removeFormItem, selectedFormItemKey } = this.props;
+    return formItems.map(formItem => {
+      const { key = 'candidate' } = formItem;
+      const selected = (selectedFormItemKey === key);
+      return (
+        <FormItemWrapper
+          key={key}
+          item={formItem}
+          onClickFormItem={selectFormItem}
+          onClickDeleteButton={removeFormItem}
+          selected={selected}
+        >
+          {generateFormItem(formItem)}
+        </FormItemWrapper>
+      );
+    });
   }
 
   renderFormContent = () => {
@@ -87,6 +104,10 @@ export default class Form extends Component {
   }
 }
 
+const renderButton = (formItem) => {
+  return (<Button type="primary">送信</Button>);
+}
+
 function generateFormItem(formItem) {
   const { type } = formItem;
   switch (type) {
@@ -109,13 +130,10 @@ function generateFormItem(formItem) {
     case FormItemTypes.RATE: {
       return <Rate />
     }
+    case FormItemTypes.SUBMIT_BUTTON: {
+      return renderButton(formItem);
+    }
     default:
       return <Input />
   }
-}
-
-function wrap(itemData) {
-  const { key = 'candidate' } = itemData;
-  return (itemComponent) =>
-    (<FormItemWrapper key={key}>{itemComponent}</FormItemWrapper>);
 }

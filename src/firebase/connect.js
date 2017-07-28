@@ -90,6 +90,10 @@ class Connector extends Observable {
     this.ref.child(key).update(newData);
   }
 
+  remove = (key) => {
+    this.removeAll([key]);
+  }
+
   removeAll = (keys) => {
     const updates = keys.reduce((updates, key) => {
       updates[key] = null;

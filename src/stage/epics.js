@@ -12,7 +12,7 @@ const listeners = {
   loadSuccess: actions.loadFormItemsSuccess,
   createSuccess: actions.saveFormItemSuccess,
   updateSuccess: actions.updateFormItemSuccess,
-  removeSuccess: () => {},
+  removeSuccess: actions.removeFormItemSuccess,
 };
 const isBuildPath = ({ payload: { pathname } }) => {
   if(re.exec(pathname)) {
@@ -50,7 +50,19 @@ const createFormItemEpic = (action$, store) =>
     })
     .ignoreElements();
 
+const removeFormItemEpic = (action$, store) => 
+  action$.ofType(actionTypes.REMOVE_FORM_ITEM)
+    .do(({ payload: { key } }) => {
+      const { routing } = store.getState();
+      const { pathname } = routing.locationBeforeTransitions;
+      const formId = getFormId(pathname);
+      const _path = path(formId);
+      connect({ path: _path }).remove(key);
+    })
+    .ignoreElements();
+
 export default combineEpics(
   watchStageEpic,
   createFormItemEpic,
+  removeFormItemEpic,
 );

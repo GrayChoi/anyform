@@ -5,3 +5,6 @@ export const SAVE_FORM_ITEM_SUCCESS = 'stage/saveItemSuccess';
 export const LOAD_FORM_ITEMS_SUCCESS = 'stage/loadFormItemsSuccess';
 export const UPDATE_FORM_ITEM_SUCCESS = 'stage/updateFormItemSuccess';
 export const REMOVE_FORMS_SUCCESS = 'stage/removeFormItemSuccess';
+export const SELECT_FORM_ITEM = 'stage/selectFormItem';
+export const REMOVE_FORM_ITEM = 'stage/removeFormItem';
+export const REMOVE_FORM_ITEM_SUCCESS = 'stage/removeFormItemSuccess';

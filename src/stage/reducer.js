@@ -32,7 +32,21 @@ export default handleActions({
   [actionTypes.REMOVE_FORMS_SUCCESS](state, { payload }) {
     return state;
   },
+  [actionTypes.SELECT_FORM_ITEM](state, { payload }) {
+    const { key } = payload;
+    return { ...state, selectedFormItemKey: key };
+  },
+  [actionTypes.REMOVE_FORM_ITEM_SUCCESS](state, { payload }) {
+    const { key } = payload[0];
+    const newformItems = state.formItems.filter(formItem => formItem.key !== key);
+    return {
+      ...state,
+      formItems: newformItems,
+      selectedFormItemKey: '',
+    };
+  }
 }, {
   candidateItem: {},
   formItems: [],
+  selectedFormItemKey: '',
 });

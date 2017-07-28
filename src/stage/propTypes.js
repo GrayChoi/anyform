@@ -17,3 +17,5 @@ export const children = PropTypes.oneOfType([
   PropTypes.element,
   PropTypes.arrayOf(PropTypes.element),
 ]);
+
+export const string = PropTypes.string;
