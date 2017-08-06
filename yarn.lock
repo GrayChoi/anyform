@@ -5474,6 +5474,13 @@ react-dnd-html5-backend@^2.4.1:
   dependencies:
     lodash "^4.2.0"
 
+react-dnd-touch-backend@^0.3.13:
+  version "0.3.13"
+  resolved "https://registry.yarnpkg.com/react-dnd-touch-backend/-/react-dnd-touch-backend-0.3.13.tgz#5d577ecba65ef8b37cd92d5342902ae5aace952d"
+  dependencies:
+    invariant "^2.2.2"
+    react-dnd "^2.4.0"
+
 react-dnd@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/react-dnd/-/react-dnd-2.4.0.tgz#96f0042cd4cd375b4f0c3413f6ec84d267b7d792"
