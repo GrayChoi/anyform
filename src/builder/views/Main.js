@@ -22,7 +22,8 @@ class Main extends Component {
   };
 
   renderFormItems = () => {
-    return formItems.map((({ type, label, color }) => (
+    // type is unique
+    return formItems.map((({ type, label, color }, index) => (
         <FormItem key={type} label={label} type={type} color={color} />
     )));
   }

@@ -12,7 +12,7 @@ import * as propTypes from '../propTypes';
 
 const FormItemTarget = {
   drop({ saveFormItem, removeCandidateFormItem }, monitor) {
-    saveFormItem(monitor.getItem());
+    saveFormItem({ formItem: monitor.getItem() });
     removeCandidateFormItem();
   },
   hover({ saveCandidateFormItem, candidateItem }, monitor) {

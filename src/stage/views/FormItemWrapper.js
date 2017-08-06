@@ -37,7 +37,7 @@ export default class FormItemWrapper extends Component {
 
   handleDeleteButtonClick = () => {
     const { onClickDeleteButton, item } = this.props;
-    onClickDeleteButton(item);
+    onClickDeleteButton({ formItem : item });
   }
 
   renderMask = ({ selected }) => {
