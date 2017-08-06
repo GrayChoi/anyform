@@ -1,12 +1,13 @@
 const { Router } = require('express');
+const formsModel = require('../models/forms');
 
 const router = Router();
 
 router.post('/', (req, res) => {
-  console.log(req.body);
-  res.status(200).json({
-    name: 'form1'
-  })
+  const uid = req.user.uid;
+
+  formsModel.create(uid, req.body);
+  res.end();
 });
 
 module.exports = router;

@@ -1,32 +1,15 @@
 const functions = require('firebase-functions');
-const { auth, database } = require('./firebase');
 const bodyParser = require('body-parser');
 const express = require('express');
-const routes = require('./routes');
+const auth = require('./middlewares/auth')
+const controllers = require('./controllers');
 
 const app = new express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(auth);
 
-const authenticate = (req, res, next) => {
-  console.log(req.headers);
-  if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
-    res.status(403).send('Unauthorized');
-    return;
-  }
-  const idToken = req.headers.authorization.split('Bearer ')[1];
-  auth.verifyIdToken(idToken).then((decodedIdToken) => {
-    req.user = decodedIdToken;
-    next();
-  }).catch(() => {
-    res.status(403).send('Unauthorized');
-  });
-};
-
-
-app.use(authenticate);
-
-routes(app);
+app.use(controllers);
 
 exports.api = functions.https.onRequest(app);
