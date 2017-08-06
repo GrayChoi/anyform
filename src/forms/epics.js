@@ -1,8 +1,9 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { combineEpics } from 'redux-observable';
 import pathToRegexp from 'path-to-regexp';
-import { connect } from '../firebase';
 import { not, compose } from 'ramda';
+import { connect } from '../firebase';
+import * as api from './api';
 import * as actionTypes from './actionTypes';
 import {
   loadFormSuccess,
@@ -37,17 +38,17 @@ const watchFormsEpic = action$ =>
 
 const createFormEpic = action$ =>
   action$.ofType(actionTypes.CREATE_FORM)
-    .map(({ payload }) => connect({ path }).push(payload))
+    .map(({ payload: { form } }) => api.createForm(form))
     .ignoreElements();
 
 const updateFormEpic = action$ =>
   action$.ofType(actionTypes.UPDATE_FORM)
-    .map(({ payload }) => connect({ path }).update(payload))
+    .map(({ payload: { form} }) => api.updateForm(form))
     .ignoreElements();
 
 const removeFormsEpic = action$ =>
   action$.ofType(actionTypes.REMOVE_FORMS)
-    .map(({ payload }) => connect({ path }).removeAll(payload))
+    .map(({ payload: { formIds } }) => api.deleteForms(formIds))
     .ignoreElements();
 
 export default combineEpics(

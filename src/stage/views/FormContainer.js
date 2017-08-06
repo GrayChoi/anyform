@@ -50,6 +50,6 @@ function mapDispatchToState(dispatch) {
     removeCandidateFormItem: () => dispatch(actions.removeCandidateFormItem()),
     saveFormItem: payload => dispatch(actions.saveFormItem(payload)),
     selectFormItem: formItem => dispatch(actions.selectFormItem(formItem)),
-    removeFormItem: formItem => dispatch(actions.removeFormItem(formItem)),
+    removeFormItem: payload => dispatch(actions.removeFormItem(payload)),
   };
 }

@@ -13,8 +13,8 @@ export default class Main extends PureComponent {
   static defaultProps = {
     records: {},
   };
-  handleCellChange = (payload) => {
-    this.props.onCellChange(payload);
+  handleCellChange = (form) => {
+    this.props.onCellChange({ form });
   }
   renderFormList = () => {
     const records = Object.values(this.props.records);

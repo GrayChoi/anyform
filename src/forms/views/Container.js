@@ -44,12 +44,12 @@ export default class Container extends Component {
   }
 
   handleClickCreateForms = (data) => {
-    this.props.createForm(data);
+    this.props.createForm({ form: data });
   }
 
   handleClickRemoveForms = () => {
     const { selectedFormKeys, removeForms } = this.props;
-    removeForms(selectedFormKeys);
+    removeForms({ formIds: selectedFormKeys });
   }
 
   handleClickEditForm = () => {
