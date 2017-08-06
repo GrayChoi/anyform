@@ -48,7 +48,7 @@ const updateFormEpic = action$ =>
 
 const removeFormsEpic = action$ =>
   action$.ofType(actionTypes.REMOVE_FORMS)
-    .map(({ payload }) => connect({ path }).removeAll(payload))
+    .map(({ payload }) => api.deleteForms(payload))
     .ignoreElements();
 
 export default combineEpics(
