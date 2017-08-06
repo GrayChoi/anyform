@@ -1,19 +1,25 @@
 const dbSchema = {
-  forms: {
-    uid: {
-      ID: {
-        name: 'form',
-        createdAt: '1234567',
+  users: {
+    UID: {
+      forms: {
+        ID: {
+          key: 'firebaseKey',
+          createdAt: '1234567',
+          updatedAt: '1234567',
+          name: 'form',
+        }
       },
-    },
-  },
-  form_items: {
-    formsID: {
-      ID: {
-        type: 'input',
-        label: '',
-        createdAt: '1234567',
+      formItems: {
+        FORM_ID: {
+          ID: {
+            key: 'firebaseKey',
+            createdAt: '1234567',
+            updatedAt: '1234567',
+            type: 'input',
+            label: 'インプット'
+          }
+        }
       }
-    },
-  },
+    }
+  }
 };
