@@ -37,7 +37,7 @@ export const selectFormItem = formItem => ({
   },
 });
 
-export const removeFormItem = formItem => ({
+export const removeFormItem = ({ formItem }) => ({
   type: types.REMOVE_FORM_ITEM,
   payload: {
     key: formItem.key,

@@ -2,11 +2,12 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { combineEpics } from 'redux-observable';
 import pathToRegexp from 'path-to-regexp';
 import { not, compose } from 'ramda';
+import * as api from './api';
 import { connect } from '../firebase';
 import * as actions from './actions';
 import * as actionTypes from './actionTypes';
 
-const path = formId => `/formsItems/${formId}`;
+const path = formId => `/formItems/${formId}`;
 const re = pathToRegexp('/build/:formId?');
 const listeners = {
   loadSuccess: actions.loadFormItemsSuccess,
@@ -41,12 +42,11 @@ const watchStageEpic = action$ =>
 
 const createFormItemEpic = (action$, store) => 
   action$.ofType(actionTypes.SAVE_FORM_ITEM)
-    .do(({ payload }) => {
+    .do(({ payload: { formItem } }) => {
       const { routing } = store.getState();
       const { pathname } = routing.locationBeforeTransitions;
       const formId = getFormId(pathname);
-      const _path = path(formId);
-      connect({ path: _path }).push(payload);
+      api.addFormItem({ formId, formItem })
     })
     .ignoreElements();
 
@@ -56,8 +56,7 @@ const removeFormItemEpic = (action$, store) =>
       const { routing } = store.getState();
       const { pathname } = routing.locationBeforeTransitions;
       const formId = getFormId(pathname);
-      const _path = path(formId);
-      connect({ path: _path }).remove(key);
+      api.deleteFormITem({ formId, formItemId: key })
     })
     .ignoreElements();
 

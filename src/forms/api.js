@@ -1,14 +1,14 @@
 import request from '../request';
 
 export const createForm = (data) => {
-  request('/forms', {
+  request('/form', {
     method: 'POST',
     data,
   });
 };
 
 export const deleteForms = (data) => {
-  request('/forms/deletes', {
+  request('/form/deletes', {
     method: 'POST',
     data,
   });
@@ -16,7 +16,7 @@ export const deleteForms = (data) => {
 
 export const updateForm = (data) => {
   const { key } = data;
-  request(`/forms/${key}`, {
+  request(`/form/${key}`, {
     method: 'PUT',
     data,
   });

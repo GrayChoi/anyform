@@ -31,11 +31,6 @@ const formItems = [
     label: '送信ボタン',
     color: '#2196F3',
   },
-  {
-    type: types.RESET_BUTTON,
-    color: '#03A9F4',
-    label: 'リセットボタン',
-  },
 ];
 
 export default formItems;

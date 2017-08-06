@@ -1,6 +1,6 @@
 const express = require('express')
   , router = express.Router()
 
-router.use('/forms', require('./forms'))
+router.use('/form', require('./form'))
 
 module.exports = router
