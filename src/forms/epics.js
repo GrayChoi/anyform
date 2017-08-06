@@ -38,17 +38,17 @@ const watchFormsEpic = action$ =>
 
 const createFormEpic = action$ =>
   action$.ofType(actionTypes.CREATE_FORM)
-    .map(({ payload }) => api.createForm(payload))
+    .map(({ payload: { form } }) => api.createForm(form))
     .ignoreElements();
 
 const updateFormEpic = action$ =>
   action$.ofType(actionTypes.UPDATE_FORM)
-    .map(({ payload }) => connect({ path }).update(payload))
+    .map(({ payload: { form} }) => api.updateForm(form))
     .ignoreElements();
 
 const removeFormsEpic = action$ =>
   action$.ofType(actionTypes.REMOVE_FORMS)
-    .map(({ payload }) => api.deleteForms(payload))
+    .map(({ payload: { formIds } }) => api.deleteForms(formIds))
     .ignoreElements();
 
 export default combineEpics(

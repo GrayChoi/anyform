@@ -20,3 +20,8 @@ exports.delete = (uid, formIds) => {
   }, {});
   return database.ref().update(updatedFormData)
 };
+
+exports.update = (uid, { formId, data }) => {
+  return database.ref(`/users/${uid}/forms/${formId}`)
+    .update(data);
+}
