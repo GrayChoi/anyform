@@ -5,4 +5,5 @@ export const firebaseConfig = {
   projectId: "anyform-e1843",
   storageBucket: "anyform-e1843.appspot.com",
   messagingSenderId: "649113571919",
+  apiURL: "http://localhost:9090/api",
 };

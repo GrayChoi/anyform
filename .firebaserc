@@ -1,5 +1,6 @@
 {
   "projects": {
-    "anyform": "anyform-e1843"
+    "anyform": "anyform-e1843",
+    "default": "anyform-e1843"
   }
 }

@@ -19,14 +19,15 @@ firebaseAuth.onAuthStateChanged((user) => {
     var isAnonymous = user.isAnonymous;
     var uid = user.uid;
     console.log(isAnonymous, uid);
+    firebaseAuth.currentUser.getIdToken().then(idToken => sessionStorage.setItem('idToken', idToken));
     const store = configureStore()
-    const history = syncHistoryWithStore(browserHistory, store)
+    const history = syncHistoryWithStore(browserHistory, store);
     render(
       <Root store={store} history={history} />,
       document.getElementById('root')
     )
   } else {
-    // User is signed out.
+    sessionStorage.removeItem('idToken');
   }
 });
 
