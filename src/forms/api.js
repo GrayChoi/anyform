@@ -6,3 +6,10 @@ export const createForm = (data) => {
     data,
   });
 }
+
+export const deleteForms = (data) => {
+  request('/forms/deletes', {
+    method: 'POST',
+    data,
+  });
+}

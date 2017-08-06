@@ -9,5 +9,14 @@ exports.create = (uid, form) => {
     updatedAt: admin.database.ServerValue.TIMESTAMP,
     createdAt: admin.database.ServerValue.TIMESTAMP,
   });
-  formRef(uid).child(key).set(newData);
-}
+  return formRef(uid).child(key).set(newData);
+};
+
+exports.delete = (uid, formIds) => {
+  const updatedFormData = formIds.reduce((updatedFormData, formId) => {
+    updatedFormData[`/users/${uid}/forms/${formId}`] = null;
+    updatedFormData[`/users/${uid}/formItems/${formId}`] = null;
+    return updatedFormData;
+  }, {});
+  return database.ref().update(updatedFormData)
+};

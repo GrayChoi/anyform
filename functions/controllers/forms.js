@@ -6,8 +6,16 @@ const router = Router();
 router.post('/', (req, res) => {
   const uid = req.user.uid;
 
-  formsModel.create(uid, req.body);
-  res.end();
+  formsModel.create(uid, req.body)
+    .then(() => res.end())
+    .catch(error => res.status(422).send({ error: error.message }));
+});
+
+router.post('/deletes', (req, res) => {
+  const uid = req.user.uid;
+  formsModel.delete(uid, req.body)
+    .then(() => res.end())
+    .catch(error => res.status(422).send({ error: error.message }));
 });
 
 module.exports = router;
